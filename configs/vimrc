@@ -85,10 +85,13 @@ highlight BufTabLineFill    ctermbg=darkgray
 let g:gitgutter_override_sign_column_highlight = 0
 
 " plugin: indentLine
-let g:indentLine_color_term   = 0
-let g:indentLine_char         = "\u2502"
-let g:indentLine_enabled      = 1
-let g:vim_json_syntax_conceal = 0
+let g:indentLine_color_term           = 0
+let g:indentLine_char                 = "\u2502"
+let g:indentLine_first_char           = "\u2502"
+let g:indentLine_enabled              = 1
+let g:vim_json_syntax_conceal         = 0
+let g:indentLine_indentLevel          = 20
+let g:indentLine_showFirstIndentLevel = 1
 
 " plugin: undotree
 set undodir=~/.vim/undodir
