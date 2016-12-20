@@ -1,8 +1,17 @@
 dotfiles
 ========
 
-Configuration, automation and data files to make my Arch Linux distribution
-feel like home. After all, I spend a decent amount of time in it.
+Configuration, automation and data files to make my Arch Linux distro feel like
+home wherever I use it, after all, I spend a decent amount of time of my life
+ working with it, so it was a natural desire not to fight against it.
+
+*Be warned though, these settings may perfectly suit my needs, but that does
+not mean they will do yours. Therefore do not use entire files nor copy/paste
+lines from them unless you truly understand what you are doing!*
+
+Other than that, use it well! :smile:
+
+
 
 License
 -------

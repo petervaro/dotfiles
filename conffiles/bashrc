@@ -27,15 +27,12 @@ alias midi='fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_G
 alias sizeof='du -hsx';
 alias lsupdates='python $HOME/scripts/lsupdates.py';
 alias watchlist='bash $HOME/documents/personal/local/arch-linux/watchlist/watchlist.sh';
-alias compile='echo "clang -std=c11 -O3 -v -pedantic -Wall -Wextra" && clang -std=c11 -O3 -v -pedantic -Wall -Wextra';
-alias scroff='bash $HOME/scripts/scroff.sh';
 #alias scrlock='';
-alias startvpn='bash $HOME/scripts/startvpn.sh';
 
-# Export variables
+# Export variables even if bash is not running in interactive mode
 export EDITOR=vim;
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib;
-export PATH=$PATH:/home/petervaro/.gem/ruby/2.3.0/bin;
+export PATH=$PATH:$HOME/scripts:$HOME/.gem/ruby/2.3.0/bin;
 export HISTCONTROL=erasedups;
 
 # If running with X

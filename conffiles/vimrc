@@ -52,6 +52,9 @@ set noshowmode
 " Strip trailing whitespaces
 autocmd BufWritePre * %s/\s\+$//e
 
+" Run interactive shell
+let &shell='/bin/bash -i'
+
 " Customise look and feel
 " if horizontal fillchar can be changed, it should be the \u2500
 let &fillchars .= ",vert:\u2502"
@@ -152,4 +155,9 @@ nnoremap <F1>  :CtrlPMixed<CR>
 nnoremap <F2>  :NERDTreeToggle<CR>
 nnoremap <F3>  :UndotreeToggle<CR>
 nnoremap <CR>  i<CR><ESC>
+
+" Copy/Paste
+nnoremap <silent> p :r !clip.sh -p<CR>
+vnoremap <silent> y :'<,'>:w !clip.sh -c<CR><CR>
+vnoremap <silent> d :'<,'>:w !clip.sh -c<CR>:'<,'>:d<CR>
 
