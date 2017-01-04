@@ -3,14 +3,29 @@
 
 CONFFILES='conffiles';
 CONFDIRS='confdirs';
-SCRIPTS='scripts';
-
-# TODO: if *.bak files already exist, then start adding .bakN (N is uint)
+USERDIRS='scripts resources';
 
 function find_nonvim_files()
 {
     printf "$(find $1 ! -iname '*~' -a ! -iname '*.swp')";
 }
+
+
+# Handle arguments
+REMOVE=false
+for a in "$@";
+do
+    case "$a" in
+        -r | --remove-existing)
+            REMOVE=true;;
+        -b | --backup-existing)
+            REMOVE=false;;
+        *)
+            printf "Unknown flag\n";
+            exit 1;
+    esac;
+done;
+
 
 # Create symlinks to config files
 for f in $(find_nonvim_files "$CONFFILES");
@@ -24,13 +39,20 @@ do
         if [ -f ~/."$fname" ] &&
            [ ! -L ~/."$fname" ];
         then
-            printf "Saving existing file as: '~/.$fname.bak'\n";
-            mv ~/."$fname" ~/."$fname".bak;
+            if [ "$REMOVE" == true ];
+            then
+                printf "Removing existing file: '~/.$fname'\n";
+                rm -f ~/."$fname";
+            else
+                printf "Saving existing file as: '~/.$fname.bak'\n";
+                mv ~/."$fname" ~/."$fname".bak;
+            fi;
         fi;
         printf "Installing symlink as '~/.$fname'\n";
         ln -sf "$(readlink -e $f)" ~/."$fname";
     fi;
 done;
+
 
 # Create symlinks to config directories
 for d in "$CONFDIRS"/*;
@@ -48,31 +70,47 @@ do
         elif [ -d ~/."$dname" ] &&
              [ ! -L ~/."$dname" ];
         then
-            printf "Saving existing directory as: '~/.$dname.bak'\n";
-            mv ~/."$dname" ~/."$dname".bak;
+            if [ "$REMOVE" == true ];
+            then
+                printf "Removing existing directory: '~/.$dname'\n";
+                rm -rf ~/."$dname";
+            else
+                printf "Saving existing directory as: '~/.$dname.bak'\n";
+                mv ~/."$dname" ~/."$dname".bak;
+            fi;
         fi;
         printf "Installing symlink as '~/.$dname'\n";
         ln -sf "$(readlink -e $d)" ~/."$dname";
     fi;
 done;
 
-# Create symlink to user-defined scripts
-if [ -d ~/"$SCRIPTS" ]
-then
-    printf "Saving existing directory as: '~/$SCRIPTS.bak'\n";
-    mv ~/"$SCRIPTS" ~/"$SCRIPTS".bak;
-fi;
-printf "Creating new directory: '~/$SCRIPTS'\n";
-mkdir ~/"$SCRIPTS";
 
-for f in $(find_nonvim_files "$SCRIPTS");
+# Create symlink to user-defined scripts
+for d in $USERDIRS;
 do
-    # If f is a file
-    if [ -f "$f" ];
+    if [ -d ~/."$d" ]
     then
-        fname="$(basename $f)";
-        printf "Installing symlink as '~/$SCRIPTS/$fname'\n";
-        ln -sf "$(readlink -e $f)" ~/"$SCRIPTS"/"$fname";
+        if [ "$REMOVE" == true ];
+        then
+            printf "Removing existing directory: '~/.$d'\n";
+            rm -rf ~/."$d";
+        else
+            printf "Saving existing directory as: '~/.$d.bak'\n";
+            mv ~/."$d" ~/."$d".bak;
+        fi;
     fi;
+    printf "Creating new directory: '~/.$d'\n";
+    mkdir ~/."$d";
+
+    for f in $(find_nonvim_files "$d");
+    do
+        # If f is a file
+        if [ -f "$f" ];
+        then
+            fname="$(basename $f)";
+            printf "Installing symlink as '~/.$d/$fname'\n";
+            ln -sf "$(readlink -e $f)" ~/."$d"/"$fname";
+        fi;
+    done;
 done;
 

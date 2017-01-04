@@ -8,10 +8,17 @@ Xft.hintstyle:  hintslight
 Xft.autohint:   false
 Xft.lcdfilter:  lcddefault
 
-URxvt.perl-ext-common: matcher,fullscreen
+URxvt.perl-ext-common: matcher,fullscreen,bell-command
 URxvt.keysym.F11: perl:fullscreen:switch
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
+
+!Normal Home and End keys
+URxvt.keysym.Home: \033[1~
+URxvt.keysym.End: \033[4~
+!Numpad Home and End keys
+URxvt.keysym.KP_Home: \033[1~
+URxvt.keysym.KP_End:  \033[4~
 
 URxvt.iso14755: false
 URxvt.iso14755_52: false
@@ -30,6 +37,7 @@ URxvt.cursorColor: #ff4422
 URxvt.cursorUnderline: false
 
 URxvt.pointerBlank: true
+URxvt.bell-command: aplay $HOME/.resources/keykrusher_bicycle_bell_2.wav
 
 *background: #282c34
 *foreground: #94a0ac

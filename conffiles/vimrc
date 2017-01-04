@@ -156,8 +156,42 @@ nnoremap <F2>  :NERDTreeToggle<CR>
 nnoremap <F3>  :UndotreeToggle<CR>
 nnoremap <CR>  i<CR><ESC>
 
-" Copy/Paste
-nnoremap <silent> p :r !clip.sh -p<CR>
-vnoremap <silent> y :'<,'>:w !clip.sh -c<CR><CR>
-vnoremap <silent> d :'<,'>:w !clip.sh -c<CR>:'<,'>:d<CR>
+" Copy/Cut/Paste
+function! ClipGetVisualSelection()
+    " Get position of the selection
+    let [l1, c1] = getpos("'<")[1:2]
+    let [l2, c2] = getpos("'>")[1:2]
+    " Get selected block
+    let lines = getline(l1, l2)
+    " Get only selected columns in the first line
+    let lines[0] = lines[0][c1 - 1:]
+    " Get only selected columns in the last line
+    let lines[-1] = lines[-1][:c2 - (&selection == 'inclusive' ? 1 : 2)]
+    " Return positions and selected text
+    return [l1, c1, l2, c2, join(lines, "\n")]
+endfunction
 
+function! ClipCopy()
+    let [l1, c1, l2, c2, lines] = ClipGetVisualSelection()
+    let lines = shellescape(escape(lines, '\'))
+    execute "silent !printf '\\%s' " . lines . " | clip.sh -c"
+    redraw!
+endfunction
+
+function! ClipCut()
+    let [l1, c1, l2, c2, lines] = ClipGetVisualSelection()
+    let lines = shellescape(escape(lines))
+    execute "silent !printf '\\%s' " . lines . " | clip.sh -c"
+    redraw!
+    call cursor(l1, c1)
+    mark a
+    call cursor(l2, c2)
+    mark b
+    execute "normal `a\"_d`b"
+    delmarks!
+endfunction
+
+nnoremap <silent>p :r !clip.sh -p<CR>
+vnoremap <nowait><silent>y :call ClipCopy()<CR>
+vnoremap <nowait><silent>d :call ClipCut()<CR>
+:

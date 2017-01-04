@@ -13,6 +13,8 @@ unset includes;
 # Read  Xresources if it hasn't already been read
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources;
 
+# Mute the PC Speaker (aka buzzer)
+xset -b;
 # Start XFCE session
 exec startxfce4;
 
