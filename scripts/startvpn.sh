@@ -93,7 +93,7 @@ fi;
 
 # Create temporary configuration
 VPN_CONF_CLIENT="$VPN_CONF_SERVER.$VPN_CONF_INFIX.$VPN_CONF_PORT.$VPN_CONF_SUFFIX";
-cat "/etc/openvpn/$VPN_CONF_CLIENT" > "$VPN_CONF_CLIENT_FILE";
+sudo cat "/etc/openvpn/client/$VPN_CONF_CLIENT" > "$VPN_CONF_CLIENT_FILE";
 printf "$VPN_CONF_STOP_DNS_LEAK" >> "$VPN_CONF_CLIENT_FILE";
 
 # Start VPM service
