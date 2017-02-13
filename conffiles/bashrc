@@ -18,6 +18,7 @@ alias nano='nano --smooth --tabsize=4 --autoindent';
 alias python3='python';
 alias pip3='pip';
 alias diff='colordiff';
+alias cdiff='cdiff --side-by-side --width=0';
 alias grep='grep --color=always';
 alias ping='prettyping --nolegend';
 alias make='colormake';

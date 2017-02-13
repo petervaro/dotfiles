@@ -12,7 +12,7 @@ def pacman():
     result = run('checkupdates', stdout=PIPE, stderr=PIPE, shell=True)
     for info in result.stdout.decode('utf-8').split('\n'):
         if info:
-            name, cur_version, _, new_version = info.split()
+            name, cur_version, _, new_version, *_ = info.split()
             yield name, cur_version, new_version
 
 
@@ -22,7 +22,7 @@ def pacaur(PATTERN=compile(r'\x1b.+?m')):
     result = run('pacaur -k', stdout=PIPE, stderr=PIPE, shell=True)
     for info in sub(PATTERN, '', result.stdout.decode('utf-8')).split('\n'):
         if info:
-            _, _, name, cur_version, _, new_version = info.split()
+            _, _, name, cur_version, _, new_version, *_ = info.split()
             yield name, cur_version, new_version
 
 
