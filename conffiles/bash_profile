@@ -34,3 +34,5 @@ fi;
 TZ='Europe/London';
 export TZ;
 
+# Set PS type
+USE_ALTERNATE_COLORED_PROMPT_STRING='';

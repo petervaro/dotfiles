@@ -5,12 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return;
 
-# Start tmux
-if [ -z "$TMUX" ];
-then
-    tmux;
-fi;
-
 # Create aliases
 alias ls='ls --color=always';
 alias tree='tree -C';
@@ -64,6 +58,11 @@ then
     BL_CORNER=$'\u2517'
     L_HYPHEN=$'\u257A'
     R_HYPHEN=$'\u2578'
+    # Start tmux if not running
+    if [ -z "$TMUX" ];
+    then
+        tmux;
+    fi;
 # If running without X
 else
     TL_CORNER=$'\u250C'
