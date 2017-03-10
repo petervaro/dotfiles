@@ -34,6 +34,10 @@ export EDITOR=nano;
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib;
 export PATH=$PATH:$HOME/.scripts;
 export HISTCONTROL=erasedups;
+export HH_CONFIG=hicolor;
+export HISTFILESIZE=16384;
+export HISTSIZE=${HISTFILESIZE};
+export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}";
 
 # If running with X
 if [ -n "$DISPLAY" ];
@@ -72,4 +76,6 @@ complete -c man which;
 
 # Window resize
 shopt -s checkwinsize;
+# Append new history items to .bash_history
+shopt -s histappend;
 
