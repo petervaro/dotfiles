@@ -39,6 +39,24 @@ export HISTFILESIZE=16384;
 export HISTSIZE=${HISTFILESIZE};
 export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}";
 
+# Color themes
+if [ -n "$USE_ALTERNATE_COLORED_PROMPT_STRING" ];
+then
+    USER_FG=31;
+    USER_BG=41;
+    HOST_FG=33;
+    HOST_BG=43;
+    PATH_FG=32;
+    PATH_BG=42;
+else
+    USER_FG=36;
+    USER_BG=46;
+    HOST_FG=35;
+    HOST_BG=45;
+    PATH_FG=33;
+    PATH_BG=43;
+fi;
+
 # If running with X
 if [ -n "$DISPLAY" ];
 then
@@ -63,12 +81,12 @@ function git_branch()
     fi;
 }
 
-PS1=$"\[\e[1;36;46m\]$TL_CORNER$R_HYPHEN\[\e[37m\]\u";
-PS1=$"$PS1\[\e[36m\]$L_HYPHEN\[\e[35;45m\]$R_HYPHEN\[\e[37m\]\H";
-PS1=$"$PS1\[\e[35m\]$L_HYPHEN\[\e[33;43m\]$R_HYPHEN\[\e[0;30;43m\]\w";
+PS1=$"\[\e[1;$USER_FG;${USER_BG}m\]$TL_CORNER$R_HYPHEN\[\e[37m\]\u";
+PS1=$"$PS1\[\e[${USER_FG}m\]$L_HYPHEN\[\e[$HOST_FG;${HOST_BG}m\]$R_HYPHEN\[\e[37m\]\H";
+PS1=$"$PS1\[\e[${HOST_FG}m\]$L_HYPHEN\[\e[$PATH_FG;${PATH_BG}m\]$R_HYPHEN\[\e[0;30;${PATH_BG}m\]\w";
 PS1=$"$PS1\$(git_branch)";
 PS1=$"$PS1\[\e[1;37m\]:";
-PS1=$"$PS1\[\e[0m\]\n\[\e[1;36m\]$BL_CORNER$R_HYPHEN\[\e[37m\]\\\$\[\e[0m\] ";
+PS1=$"$PS1\[\e[0m\]\n\[\e[1;${USER_FG}m\]$BL_CORNER$R_HYPHEN\[\e[37m\]\\\$\[\e[0m\] ";
 export PS1;
 
 # Auto-completion
@@ -76,6 +94,6 @@ complete -c man which;
 
 # Window resize
 shopt -s checkwinsize;
+
 # Append new history items to .bash_history
 shopt -s histappend;
-
