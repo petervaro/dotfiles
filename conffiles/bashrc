@@ -31,7 +31,7 @@ export HISTCONTROL=erasedups;
 export HH_CONFIG=hicolor;
 export HISTFILESIZE=16384;
 export HISTSIZE=${HISTFILESIZE};
-export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}";
+#export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}";
 
 # Color themes
 if [ -n "$USE_ALTERNATE_COLORED_PROMPT_STRING" ];
@@ -54,10 +54,10 @@ fi;
 # If running with X
 if [ -n "$DISPLAY" ];
 then
-    TL_CORNER=$'\u250F'
-    BL_CORNER=$'\u2517'
-    L_HYPHEN=$'\u257A'
-    R_HYPHEN=$'\u2578'
+    TL_CORNER=$'\u250F';
+    BL_CORNER=$'\u2517';
+    L_HYPHEN=$'\u257A';
+    R_HYPHEN=$'\u2578';
     # Start tmux if not running
     if [ -z "$TMUX" ];
     then
@@ -65,15 +65,15 @@ then
     fi;
 # If running without X
 else
-    TL_CORNER=$'\u250C'
-    BL_CORNER=$'\u2514'
-    L_HYPHEN=$'\u2500'
-    R_HYPHEN=$'\u2500'
+    TL_CORNER=$'\u250C';
+    BL_CORNER=$'\u2514';
+    L_HYPHEN=$'\u2500';
+    R_HYPHEN=$'\u2500';
 fi;
 
 function git_branch()
 {
-    BRANCH="$(git branch 2>/dev/null | command grep '^*' | colrm 1 2)"
+    BRANCH="$(git branch 2>/dev/null | command grep '^*' | colrm 1 2)";
     if [ -n "$BRANCH" ];
     then
         printf "\e[1;33m$L_HYPHEN\e[37;47m$R_HYPHEN\e[0;30;47m$BRANCH";
@@ -95,4 +95,4 @@ complete -c man which;
 shopt -s checkwinsize;
 
 # Append new history items to .bash_history
-shopt -s histappend;
+#shopt -s histappend;
