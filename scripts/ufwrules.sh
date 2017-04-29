@@ -9,7 +9,7 @@ sudo ufw default deny outgoing
 sudo ufw default deny incoming
 
 # Allow communication with the router
-sudo ufw allow from 192.168.0.0/24
+sudo ufw allow from 192.168.1.1/24
 
 # Allow communication through the VPN tunnel
 sudo ufw allow out on tun0
