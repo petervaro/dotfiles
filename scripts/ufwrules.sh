@@ -104,6 +104,17 @@ sudo ufw allow out to 95.143.198.99 port 1194 proto udp
 sudo ufw allow out to 95.143.198.47 port 443 proto tcp
 sudo ufw allow out to 95.143.198.47 port 1194 proto udp
 
+# uk28
+sudo ufw allow out to 5.152.210.252 port 443 proto tcp
+sudo ufw allow out to 5.152.210.252 port 1194 proto udp
+
+# uk36
+sudo ufw allow out to 88.150.206.161 port 443 proto tcp
+sudo ufw allow out to 88.150.206.161 port 1194 proto udp
+
+# uk54
+sudo ufw allow out to 185.145.156.52 port 443 proto tcp
+sudo ufw allow out to 185.145.156.52 port 1194 proto udp
+
 # Report back to the user
 sudo ufw status verbose
-

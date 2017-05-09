@@ -43,6 +43,11 @@ VPN_CONF_P2P_7='se2';
 VPN_CONF_P2P_8='ch3';
 VPN_CONF_P2P_9='ch5';
 
+VPN_CONF_UK_0='uk28';
+VPN_CONF_UK_1='uk36';
+VPN_CONF_UK_2='uk54';
+
+
 # Set variables based on arguments
 INDEX='0';
 SERVER='VPN_CONF_STD_';
@@ -51,6 +56,8 @@ VPN_CONF_PORT="$VPN_CONF_TCP";
 while true;
 do
     case "$1" in
+        -U | --uk)
+            SERVER='VPN_CONF_UK_';;
         -S | --std)
             SERVER='VPN_CONF_STD_';;
         -T | --tor)
