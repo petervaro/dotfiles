@@ -24,6 +24,9 @@ then
     clear; # for background artifacting
 fi;
 
+# Set PS type
+USE_ALTERNATE_COLORED_PROMPT_STRING='';
+
 # Evaluate rc file
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
@@ -33,6 +36,3 @@ fi;
 # Set timezone variable
 TZ='Europe/London';
 export TZ;
-
-# Set PS type
-USE_ALTERNATE_COLORED_PROMPT_STRING='';
