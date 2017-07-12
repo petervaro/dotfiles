@@ -36,3 +36,6 @@ USE_ALTERNATE_COLORED_PROMPT_STRING='';
 # Set timezone variable
 TZ='Europe/London';
 export TZ;
+
+# Run custom system initialisation
+bash ~/.scripts/sysinit.sh;
