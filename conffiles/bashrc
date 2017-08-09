@@ -21,6 +21,7 @@ alias rand='python $HOME/.scripts/rand.py';
 alias midi='fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM2-2.sf2';
 alias sizeof='du -hsx';
 alias lsupdates='python $HOME/.scripts/lsupdates.py';
+alias cleanhistory='python $HOME/.scripts/cleanhistory.py';
 alias watchlist='bash $HOME/documents/personal/local/arch-linux/watchlist/watchlist.sh';
 
 # Export variables even if bash is not running in interactive mode
