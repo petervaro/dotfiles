@@ -23,7 +23,10 @@ EXCLUDE  = ('cd',
             'cloc',
             'man',
             'mkdir',
-            'touch')
+            'touch',
+            'pass edit',
+            'pass generate',
+            'git')
 EXCLUDE += tuple('sudo {}'.format(cmd) for cmd in EXCLUDE)
 
 history = set()
