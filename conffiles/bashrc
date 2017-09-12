@@ -32,6 +32,7 @@ export HISTCONTROL=erasedups;
 export HH_CONFIG=hicolor;
 export HISTFILESIZE=16384;
 export HISTSIZE=${HISTFILESIZE};
+export VIRTUAL_ENV_DISABLE_PROMPT=true;
 #export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}";
 
 # Color themes
@@ -43,6 +44,10 @@ then
     HOST_BG=43;
     PATH_FG=32;
     PATH_BG=42;
+    GIT_FG=30;
+    GIT_BG=47;
+    VENV_FG=34;
+    VENV_BG=44;
 else
     USER_FG=36;
     USER_BG=46;
@@ -50,6 +55,10 @@ else
     HOST_BG=45;
     PATH_FG=33;
     PATH_BG=43;
+    GIT_FG=30;
+    GIT_BG=47;
+    VENV_FG=34;
+    VENV_BG=44;
 fi;
 
 # If running with X
@@ -74,20 +83,39 @@ else
     JUNCTION=$'\u251C';
 fi;
 
-function git_branch()
+function virtual_layers()
 {
     BRANCH="$(git branch 2>/dev/null | command grep '^*' | colrm 1 2)";
+    # Render git-branch if this is a git-repo
     if [ -n "$BRANCH" ];
     then
-        # printf "\e[1;33m$L_HYPHEN\e[37;47m$R_HYPHEN\e[0;30;47m$BRANCH";
-        printf "\e[0m\n\e[1;${USER_FG}m$JUNCTION\e[37;47m$R_HYPHEN\e[0;30;47m$BRANCH\e[1;37m:";
+        printf "\e[0m\n\e[1;${USER_FG}m$JUNCTION\e[37;${GIT_BG}m$R_HYPHEN\e[0;$GIT_FG;${GIT_BG}m$BRANCH";
+        # If another virtual layer will follow this
+        if [ -n "$VIRTUAL_ENV" ];
+        then
+            printf "\e[1;37m$L_HYPHEN";
+        # If this is the last virtual layer to show
+        else
+            printf "\e[1;37;${GIT_BG}m:";
+            return;
+        fi;
+    fi;
+    # Render virtual-environment if this is one
+    if [ -n "$VIRTUAL_ENV" ];
+    then
+        # If this is the first virtual layer to show
+        if [ -z "$BRANCH" ];
+        then
+            printf "\e[0m\n\e[1;${USER_FG}m$JUNCTION";
+        fi;
+        printf "\e[0m\e[1;$VENV_FG;${VENV_BG}m$R_HYPHEN\e[37m${VIRTUAL_ENV##*/}\e[1;37m:";
     fi;
 }
 
 PS1=$"\[\e[1;$USER_FG;${USER_BG}m\]$TL_CORNER$R_HYPHEN\[\e[37m\]\u";
 PS1=$"$PS1\[\e[${USER_FG}m\]$L_HYPHEN\[\e[$HOST_FG;${HOST_BG}m\]$R_HYPHEN\[\e[37m\]\H";
 PS1=$"$PS1\[\e[${HOST_FG}m\]$L_HYPHEN\[\e[$PATH_FG;${PATH_BG}m\]$R_HYPHEN\[\e[0;30;${PATH_BG}m\]\w\[\e[1;37m\]:";
-PS1=$"$PS1\$(git_branch)";
+PS1=$"$PS1\$(virtual_layers)";
 PS1=$"$PS1\[\e[0m\]\n\[\e[1;${USER_FG}m\]$BL_CORNER$R_HYPHEN\[\e[37m\]\\\$\[\e[0m\] ";
 export PS1;
 
