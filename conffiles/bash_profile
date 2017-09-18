@@ -30,9 +30,6 @@ USE_ALTERNATE_COLORED_PROMPT_STRING='';
 # Evaluate rc file
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-# Run archey on every login
-#archey3 --config=.config/archey3.conf;
-
 # Set timezone variable
 TZ='Europe/London';
 export TZ;

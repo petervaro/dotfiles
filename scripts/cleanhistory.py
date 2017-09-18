@@ -5,6 +5,7 @@ from subprocess import run
 from os.path    import expanduser
 
 EXCLUDE  = ('cd',
+            'chmod',
             'clear',
             'reset',
             'hh',
@@ -26,21 +27,41 @@ EXCLUDE  = ('cd',
             'touch',
             'pass edit',
             'pass generate',
-            'git')
+            'git',
+            'adb',
+            'cini',
+            'bash',
+            'convert',
+            'curl',
+            'diff',
+            'flask',
+            'firefox',
+            'grip',
+            'nano',
+            'mc',
+            'mplayer',
+            'peerflix',
+            'ping',
+            'wget',
+            'youtube-dl',
+            './')
 EXCLUDE += tuple('sudo {}'.format(cmd) for cmd in EXCLUDE)
 
 history = set()
 with open(expanduser('~/.bash_history'), 'r+') as file:
     for line in file:
+        line = line.strip()
         if not line:
             continue
         for exclude in EXCLUDE:
-            if line.lower().startswith(exclude):
+            # TODO: Replace this WIP check with a proper regex
+            if (line.lower().startswith(exclude) or
+                line.lower().startswith('sudo ' + exclude)):
                 break
         else:
             history.add(line)
     file.seek(0)
-    file.write(''.join(sorted(history)))
+    file.write('\n'.join(sorted(history)))
     file.truncate()
 
 # Clear history from memory

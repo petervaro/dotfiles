@@ -5,6 +5,14 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return;
 
+# If first log in
+if [ ! -f /tmp/.already_logged_in ];
+then
+    # Print system info
+    alsi --file-logo=/home/petervaro/.resources/archie --text-color --white;
+    touch /tmp/.already_logged_in;
+fi;
+
 # Create aliases
 alias ls='ls --color=always';
 alias tree='tree -C';
