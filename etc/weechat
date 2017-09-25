@@ -1,0 +1,46 @@
+Look and feel:
+
+    /set weechat.look.prefix_suffix "│"
+    /set weechat.look.read_marker_string "─"
+    /set weechat.look.separator_horizontal "─"
+    /set weechat.bar.title.separator on
+    /set weechat.bar.input.separator on
+    /set weechat.bar.status.hidden on
+
+    /set weechat.color.separator darkgray
+    /set weechat.bar.nicklist.color_fg gray
+    /set weechat.bar.title.color_fg white
+    /set weechat.color.chat_prefix_suffix gray
+    /set buflist.format.buffer_current "${color:,black}${format_number}${color:white}${indent}${name}"
+    /set weechat.look.buffer_time_format "${color:darkgray}%H${color:darkgray}%M${color:darkgray}%S"
+
+    /filter add irc_smart * irc_smart_filter *
+    /set irc.look.smart_filter on
+
+    /set irc.look.server_buffer independent
+
+Spell checking:
+
+    /set aspell.check.enabled on
+    /set aspell.check.real_time on
+    /set aspell.check.default_dict "en_gb"
+
+Password setup:
+
+    /secure passphrase <app-password>
+    /secure freenode <freenode-password>
+
+Server setup:
+
+    /set irc.server.freenode.nicks "petervaro,petervaro_,petervaro__"
+    /set irc.server.freenode.realname "Peter Varo"
+    /set irc.server.freenode.autoconnect on
+    /set irc.server.freenode.addresses "chat.freenode.net/7000"
+    /set irc.server.freenode.ssl on
+    /set irc.server.freenode.sasl_username "<user-name>"
+    /set irc.server.freenode.sasl_password "${sec.data.freenode}"
+    /set irc.server.freenode.autojoin "##c,#d,#archlinux,#haskell,#xfce"
+
+Save the changes:
+
+    /save

@@ -25,14 +25,13 @@ then
 fi;
 
 # Set PS type
-USE_ALTERNATE_COLORED_PROMPT_STRING='';
+export USE_ALTERNATE_COLORED_PROMPT_STRING='';
 
 # Evaluate rc file
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+[[ -f ~/.bashrc ]] && source ~/.bashrc
 
 # Set timezone variable
-TZ='Europe/London';
-export TZ;
+export TZ='Europe/London';
 
 # Run custom system initialisation
 bash ~/.scripts/sysinit.sh;
