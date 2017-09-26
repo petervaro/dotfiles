@@ -13,7 +13,7 @@ Look and feel:
     /set weechat.bar.title.color_bg default
     /set weechat.color.chat_prefix_suffix gray
     /set buflist.format.buffer_current "${color:,black}${format_number}${color:white}${indent}${name}"
-    /set weechat.look.buffer_time_format "${color:darkgray}%H${color:darkgray}%M${color:darkgray}%S"
+    /set weechat.look.buffer_time_format "${color:darkgray}%H:${color:darkgray}%M:${color:darkgray}%S"
 
     /filter add irc_smart * irc_smart_filter *
     /set irc.look.smart_filter on
