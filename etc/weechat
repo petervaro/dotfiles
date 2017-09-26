@@ -10,6 +10,7 @@ Look and feel:
     /set weechat.color.separator darkgray
     /set weechat.bar.nicklist.color_fg gray
     /set weechat.bar.title.color_fg white
+    /set weechat.bar.title.color_bg default
     /set weechat.color.chat_prefix_suffix gray
     /set buflist.format.buffer_current "${color:,black}${format_number}${color:white}${indent}${name}"
     /set weechat.look.buffer_time_format "${color:darkgray}%H${color:darkgray}%M${color:darkgray}%S"
@@ -28,10 +29,11 @@ Spell checking:
 Password setup:
 
     /secure passphrase <app-password>
-    /secure freenode <freenode-password>
+    /secure set freenode <freenode-password>
 
 Server setup:
 
+    /server add freenode chat.freenode.net
     /set irc.server.freenode.nicks "petervaro,petervaro_,petervaro__"
     /set irc.server.freenode.realname "Peter Varo"
     /set irc.server.freenode.autoconnect on
