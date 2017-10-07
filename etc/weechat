@@ -41,7 +41,7 @@ Server setup:
     /set irc.server.freenode.ssl on
     /set irc.server.freenode.sasl_username "<user-name>"
     /set irc.server.freenode.sasl_password "${sec.data.freenode}"
-    /set irc.server.freenode.autojoin "##c,#d,#archlinux,#haskell,#xfce"
+    /set irc.server.freenode.autojoin "##c,#d,#archlinux,#fairphone"
 
 Save the changes:
 

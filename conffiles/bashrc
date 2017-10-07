@@ -119,3 +119,7 @@ shopt -s checkwinsize;
 
 # Append new history items to .bash_history
 #shopt -s histappend;
+
+# Add GPG key to bash profile
+export GPG_TTY=$(tty);
+
