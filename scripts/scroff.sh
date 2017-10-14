@@ -2,7 +2,7 @@
 ## INFO ##
 ## INFO ##
 
-revert()
+function revert()
 {
     xset dpms 0 0 0;
 }
