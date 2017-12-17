@@ -51,7 +51,8 @@ history = set()
 with open(expanduser('~/.bash_history'), 'r+') as file:
     for line in file:
         line = line.strip()
-        if not line:
+        # If empty line or if command without parameters
+        if not line or len(line.split()) == 1:
             continue
         for exclude in EXCLUDE:
             # TODO: Replace this WIP check with a proper regex

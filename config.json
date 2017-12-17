@@ -1,0 +1,92 @@
+{
+    "openbox":
+    {
+        "variants":
+        {
+            "home": "openbox_home",
+            "work": "openbox_work"
+        },
+        "name": "openbox",
+        "path": "~/.config"
+    },
+    "dunst":
+    {
+        "path": "~/.config"
+    },
+    "package_sync":
+    {
+        "name": ".package_sync",
+        "path": "~"
+    },
+    "Xresources":
+    {
+        "name": ".Xresources",
+        "path": "~"
+    },
+    "bash_aliases":
+    {
+        "name": ".bash_aliases",
+        "path": "~"
+    },
+    "bash_profile":
+    {
+        "name": ".bash_profile",
+        "path": "~"
+    },
+    "bashrc":
+    {
+        "name": ".bashrc",
+        "path": "~"
+    },
+    "lxtask.conf":
+    {
+        "path": "~/.config"
+    },
+    "nanorc":
+    {
+        "name": ".nanorc",
+        "path": "~"
+    },
+    "nordvpn_servers":
+    {
+        "name": ".nordvpn_servers",
+        "path": "~"
+    },
+    "tmux.conf":
+    {
+        "name": ".tmux.conf",
+        "path": "~"
+    },
+    "xinitrc":
+    {
+        "name": ".xinitrc",
+        "path": "~"
+    },
+    "scripts":
+    {
+        "name": ".scripts",
+        "path": "~"
+    },
+    "resources":
+    {
+        "name": ".resources",
+        "path": "~"
+    },
+    "rofi_config":
+    {
+        "name": "config",
+        "path": "~/.config/rofi"
+    },
+    "bin/nordvpn":
+    {
+        "name": "nordvpn",
+        "path": "/usr/local/bin",
+        "sudo": true
+    },
+    "bin/ufwrules":
+    {
+        "name": "ufwrules",
+        "path": "/usr/local/bin",
+        "sudo": true
+    }
+}

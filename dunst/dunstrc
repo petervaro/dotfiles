@@ -1,0 +1,29 @@
+## INFO ##
+## INFO ##
+
+# SEE: https://github.com/dunst-project/dunst/blob/master/docs/dunst.pod
+
+[global]
+font = Meslo LG L 8
+markup = full
+plain_text = no
+format = "%a: <b>%s</b>\n%b"
+indicate_hidden = yes
+alignment = left
+follow = mouse
+geometry = 300x100-10+10
+transparency = 15
+separator_height = 2
+separator_color = "#909090"
+padding = 10
+horizontal_padding = 10
+frame_width = 1
+word_wrap = true
+browser = /usr/bin/firefox -new-tab
+stack_duplicates = false
+
+# TODO: Implement the urgency sections
+
+[*]
+foreground = "#FFFFFF"
+background = "#000000"

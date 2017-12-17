@@ -1,0 +1,53 @@
+{
+    "references":
+    {
+        "new":
+        [
+            "dunst",
+            "feh",
+            "leafpad",
+            "lxtask",
+            "numlockx",
+            "nvidia-settings",
+            "openbox",
+            "raw-thumbnailer",
+            "rofi",
+            "spectacle",
+            "task",
+            "thunar",
+            "thunar-archive-plugin",
+            "thunar-volman",
+            "tumbler",
+            "xiccd"
+        ],
+        "old":
+        [
+            "calcurse",
+            "plank-theme-arc",
+            "plank-theme-numix",
+            "plank-theme-orchis-git",
+            "plank-theme-pantheon-bzr",
+            "vim",
+            "xfce4",
+            "xfce4-goodies"
+        ]
+    },
+    "upgrade":
+    [
+        {
+            "sudo pacman -Rns": "old"
+        },
+        {
+            "sudo pacman -S": "new"
+        }
+    ],
+    "downgrade":
+    [
+        {
+            "sudo pacman -Rns": "new"
+        },
+        {
+            "sudo pacman -S": "old"
+        }
+    ]
+}

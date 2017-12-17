@@ -1,0 +1,11 @@
+{
+	"name": "ufwrules",
+	"authors": [
+		"Peter Varo"
+	],
+	"description": "Set firewall based on the VPN configuration shared with nordvpn",
+	"copyright": "Copyright (C) 2017, Peter Varo",
+	"license": "GPL-3.0",
+    "targetName": "ufwrules",
+    "targetPath": "../../bin"
+}

@@ -1,0 +1,44 @@
+! "Enabled modi" Set from: Default
+rofi.modi: run
+
+! "Window width" Set from: Default
+rofi.width: 10
+
+! "Number of lines" Set from: Default
+rofi.lines: 15
+
+! "Font to use" Set from: Default
+rofi.font: Meslo LG L 8
+
+! "Border width" Set from: Default
+rofi.bw: 1
+
+! "Disable history in run/ssh" Set from: Default
+rofi.disable-history: true
+
+! "Use sorting" Set from: Default
+rofi.sort: false
+
+! "Set case-sensitivity" Set from: Default
+rofi.case-sensitive: false
+
+! "Enable sidebar-mode" Set from: Default
+rofi.sidebar-mode: false
+
+! "Set the matching algorithm. (normal, regex, glob, fuzzy)" Set from: Default
+rofi.matching: normal
+
+! Separator style (none, dash, solid)
+rofi.separator-style: none
+
+! "Click outside the window to exit" Set from: Default
+rofi.click-to-exit: true
+
+! "Color scheme"   bg       fg       bgalt    hlbg     hlfg
+rofi.color-normal: #282c34, #94a0ac, #303640, #4f5865, #f0f0f0
+
+! "Color scheme"   bg       border   separator
+rofi.color-window: #282c34, #101010
+
+! "Quit rofi" Set from: Default
+rofi.kb-cancel: Escape

@@ -1,0 +1,11 @@
+{
+	"name": "nordvpn",
+	"authors": [
+		"Peter Varo"
+	],
+	"description": "NordVPN connection manager",
+	"copyright": "Copyright (C) 2017, Peter Varo",
+	"license": "GPL-3.0",
+    "targetName": "nordvpn",
+    "targetPath": "../../bin"
+}

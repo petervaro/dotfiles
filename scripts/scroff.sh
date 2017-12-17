@@ -9,5 +9,5 @@ function revert()
 
 trap revert SIGHUP SIGINT SIGTERM;
 xset +dpms dpms 5 5 5;
-i3lock -n -b -I 1 -c 000000;
+i3lock -n -b -c 000000;
 revert;
