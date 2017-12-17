@@ -18,8 +18,6 @@ License
 
 All plain text files are licensed as:
 
----
-
 Copyright &copy; 2016-2018 **Peter Varo**
 
 This program is free software: you can redistribute it and/or modify it under
