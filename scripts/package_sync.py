@@ -58,9 +58,6 @@ OPTIONS
     -h, --help
         Prints this text.
 
-    -i, --initialise
-        Sets HEAD to the oldest in the transaction directory.
-
     -n, --new editor
         Opens a new file in the given editor with the name of the current date
         and time.
@@ -106,16 +103,6 @@ LICENSE
     this program, most likely a file in the root directory, called 'LICENSE'. If
     not, see http://www.gnu.org/licenses.
 """)
-
-
-#------------------------------------------------------------------------------#
-def init():
-    """
-    Set HEAD to the oldest file if it hasm't been yet set
-    """
-    if not isfile(join(SYNC_PATH, HEAD_NAME)):
-        with open(join(SYNC_PATH, HEAD_NAME), 'w') as head:
-            head.write(_sorted_file_names(reverse=False)[0])
 
 
 #------------------------------------------------------------------------------#
@@ -177,9 +164,9 @@ def query():
     with open(join(SYNC_PATH, HEAD_NAME)) as head:
         head_file = head.read()
 
-        for file_name in _sorted_file_names(reverse=False):
-            print(file_name,
-                  end=' [HEAD]\n' if file_name == head_file else '\n')
+    for file_name in _sorted_file_names(reverse=False):
+        print(file_name,
+              end=' [HEAD]\n' if file_name == head_file else '\n')
 
 
 #------------------------------------------------------------------------------#
@@ -187,10 +174,15 @@ def upgrade():
     """
     Execute all transactions since the current HEAD
     """
-    with open(join(SYNC_PATH, HEAD_NAME), 'r+') as head:
+    head_path = join(SYNC_PATH, HEAD_NAME)
+
+    if not isfile(head_path):
+        open(head_path, 'a').close()
+
+    with open(head_path, 'r+') as head:
         file_name = head_file = head.read()
 
-        execute_transaction = False
+        execute_transaction = False if head_file else True
         for file_name in _sorted_file_names(reverse=False):
             if execute_transaction:
                 with open(join(SYNC_PATH, file_name)) as json:
@@ -208,6 +200,11 @@ def downgrade():
     """
     Execute n transactions before the current HEAD
     """
+    head_path = join(SYNC_PATH, HEAD_NAME)
+
+    if not isfile(head_path):
+        return print('HEAD is not set (run --upgrade or --set)')
+
     with open(join(SYNC_PATH, HEAD_NAME), 'r+') as head:
         file_name = head_file = head.read()
 
@@ -239,8 +236,6 @@ if __name__ == '__main__':
          '-help'       : help,
          '--help'      : help,
          'help'        : help,
-         '-i'          : init,
-         '--initialise': init,
          '-n'          : new,
          '--new'       : new,
          '-s'          : set_,
