@@ -58,6 +58,9 @@ OPTIONS
     -h, --help
         Prints this text.
 
+    -i, --initialise
+        Sets HEAD to the oldest in the transaction directory.
+
     -n, --new editor
         Opens a new file in the given editor with the name of the current date
         and time.
@@ -103,6 +106,16 @@ LICENSE
     this program, most likely a file in the root directory, called 'LICENSE'. If
     not, see http://www.gnu.org/licenses.
 """)
+
+
+#------------------------------------------------------------------------------#
+def init():
+    """
+    Set HEAD to the oldest file if it hasm't been yet set
+    """
+    if not isfile(join(SYNC_PATH, HEAD_NAME)):
+        with open(join(SYNC_PATH, HEAD_NAME), 'w') as head:
+            head.write(_sorted_file_names(reverse=False)[0])
 
 
 #------------------------------------------------------------------------------#
@@ -222,22 +235,24 @@ def downgrade():
 #------------------------------------------------------------------------------#
 if __name__ == '__main__':
     try:
-        {'-h'         : help,
-         '-help'      : help,
-         '--help'     : help,
-         'help'       : help,
-         '-n'         : new,
-         '--new'      : new,
-         '-s'         : set_,
-         '--set'      : set_,
-         '-l'         : last,
-         '--last'     : last,
-         '-u'         : upgrade,
-         '--upgrade'  : upgrade,
-         '-d'         : downgrade,
-         '--downgrade': downgrade,
-         '-q'         : query,
-         '--query'    : query}[next(argv)]()
+        {'-h'          : help,
+         '-help'       : help,
+         '--help'      : help,
+         'help'        : help,
+         '-i'          : init,
+         '--initialise': init,
+         '-n'          : new,
+         '--new'       : new,
+         '-s'          : set_,
+         '--set'       : set_,
+         '-l'          : last,
+         '--last'      : last,
+         '-u'          : upgrade,
+         '--upgrade'   : upgrade,
+         '-d'          : downgrade,
+         '--downgrade' : downgrade,
+         '-q'          : query,
+         '--query'     : query}[next(argv)]()
     except KeyError:
         print('Invalid sub-command. Try --help', file=stderr)
         exit(1)
