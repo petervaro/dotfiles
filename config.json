@@ -107,6 +107,24 @@
     [
         "openbox",
         {
+            "pre":
+            {
+                "commands":
+                {
+                    "home":
+                    [
+                        ["python", "openboxer.py", "home"]
+                    ],
+                    "work":
+                    [
+                        ["python", "openboxer.py", "work"]
+                    ],
+                    "mobile":
+                    [
+                        ["python", "openboxer.py", "mobile"]
+                    ]
+                }
+            },
             "variants":
             {
                 "home": "openbox_home",

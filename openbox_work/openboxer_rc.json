@@ -1,0 +1,246 @@
+{
+    "main_keys": ["W"],
+    "screen_matrices":
+    {
+        "center":
+        [
+            {
+                "x"     : 640,
+                "y"     : 320,
+                "width" : 1280,
+                "height": 800
+            }
+        ],
+        "halves":
+        [
+            {
+                "x"     : 0,
+                "y"     : 0,
+                "width" : 1280,
+                "height": 1440
+            },
+            {
+                "x"     : 0,
+                "y"     : 0,
+                "width" : 3440,
+                "height": 720
+            },
+            {
+                "x"     : 1280,
+                "y"     : 0,
+                "width" : 1280,
+                "height": 1440
+            },
+            {
+                "x"     : 0,
+                "y"     : 720,
+                "width" : 3440,
+                "height": 720
+            }
+        ],
+        "fourthes":
+        [
+            {
+                "x"     : 0,
+                "y"     : 0,
+                "width" : 1280,
+                "height": 720
+            },
+            {
+                "x"     : 1280,
+                "y"     : 0,
+                "width" : 1280,
+                "height": 720
+            },
+            {
+                "x"     : 0,
+                "y"     : 720,
+                "width" : 1280,
+                "height": 720
+            },
+            {
+                "x"     : 1280,
+                "y"     : 720,
+                "width" : 1280,
+                "height": 720
+            }
+        ],
+        "ninethes":
+        [
+            {
+                "x"     : 0,
+                "y"     : 0,
+                "width" : 853,
+                "height": 480
+            },
+            {
+                "x"     : 853,
+                "y"     : 0,
+                "width" : 853,
+                "height": 480
+            },
+            {
+                "x"     : 1706,
+                "y"     : 0,
+                "width" : 854,
+                "height": 480
+            },
+            {
+                "x"     : 0,
+                "y"     : 480,
+                "width" : 853,
+                "height": 480
+            },
+            {
+                "x"     : 853,
+                "y"     : 480,
+                "width" : 853,
+                "height": 480
+            },
+            {
+                "x"     : 1706,
+                "y"     : 480,
+                "width" : 854,
+                "height": 480
+            },
+            {
+                "x"     : 0,
+                "y"     : 960,
+                "width" : 853,
+                "height": 480
+            },
+            {
+                "x"     : 853,
+                "y"     : 960,
+                "width" : 853,
+                "height": 480
+            },
+            {
+                "x"     : 1706,
+                "y"     : 960,
+                "width" : 854,
+                "height": 480
+            }
+        ]
+    },
+    "screen_key_chains":
+    {
+        "KP_1":
+        {
+            "KP_Enter": ["fourthes", 2],
+            "KP_1"    : ["ninethes", 6],
+            "KP_2"    : ["ninethes", 6, 7],
+            "KP_3"    : ["ninethes", 6, 8],
+            "KP_4"    : ["ninethes", 6, 3],
+            "KP_5"    : ["ninethes", 6, 4],
+            "KP_6"    : ["ninethes", 6, 5],
+            "KP_7"    : ["ninethes", 6, 0],
+            "KP_8"    : ["ninethes", 6, 1],
+            "KP_9"    : ["ninethes", 6, 2]
+        },
+        "KP_2":
+        {
+            "KP_Enter": ["halves", 3],
+            "KP_1"    : ["ninethes", 7, 6],
+            "KP_2"    : ["ninethes", 7],
+            "KP_3"    : ["ninethes", 7, 8],
+            "KP_4"    : ["ninethes", 7, 3],
+            "KP_5"    : ["ninethes", 7, 4],
+            "KP_6"    : ["ninethes", 7, 5],
+            "KP_7"    : ["ninethes", 7, 0],
+            "KP_8"    : ["ninethes", 7, 1],
+            "KP_9"    : ["ninethes", 7, 2]
+        },
+        "KP_3":
+        {
+            "KP_Enter": ["fourthes", 3],
+            "KP_1"    : ["ninethes", 8, 6],
+            "KP_2"    : ["ninethes", 8, 7],
+            "KP_3"    : ["ninethes", 8],
+            "KP_4"    : ["ninethes", 8, 3],
+            "KP_5"    : ["ninethes", 8, 4],
+            "KP_6"    : ["ninethes", 8, 5],
+            "KP_7"    : ["ninethes", 8, 0],
+            "KP_8"    : ["ninethes", 8, 1],
+            "KP_9"    : ["ninethes", 8, 2]
+        },
+        "KP_4":
+        {
+            "KP_Enter": ["halves", 0],
+            "KP_1"    : ["ninethes", 3, 6],
+            "KP_2"    : ["ninethes", 3, 7],
+            "KP_3"    : ["ninethes", 3, 8],
+            "KP_4"    : ["ninethes", 3],
+            "KP_5"    : ["ninethes", 3, 4],
+            "KP_6"    : ["ninethes", 3, 5],
+            "KP_7"    : ["ninethes", 3, 0],
+            "KP_8"    : ["ninethes", 3, 1],
+            "KP_9"    : ["ninethes", 3, 2]
+        },
+        "KP_5":
+        {
+            "KP_Enter": ["center", 0],
+            "KP_1"    : ["ninethes", 4, 6],
+            "KP_2"    : ["ninethes", 4, 7],
+            "KP_3"    : ["ninethes", 4, 8],
+            "KP_4"    : ["ninethes", 4, 3],
+            "KP_5"    : ["ninethes", 4],
+            "KP_6"    : ["ninethes", 4, 5],
+            "KP_7"    : ["ninethes", 4, 0],
+            "KP_8"    : ["ninethes", 4, 1],
+            "KP_9"    : ["ninethes", 4, 2]
+        },
+        "KP_6":
+        {
+            "KP_Enter": ["halves", 2],
+            "KP_1"    : ["ninethes", 5, 6],
+            "KP_2"    : ["ninethes", 5, 7],
+            "KP_3"    : ["ninethes", 5, 8],
+            "KP_4"    : ["ninethes", 5, 3],
+            "KP_5"    : ["ninethes", 5, 4],
+            "KP_6"    : ["ninethes", 5],
+            "KP_7"    : ["ninethes", 5, 0],
+            "KP_8"    : ["ninethes", 5, 1],
+            "KP_9"    : ["ninethes", 5, 2]
+        },
+        "KP_7":
+        {
+            "KP_Enter": ["fourthes", 0],
+            "KP_1"    : ["ninethes", 0, 6],
+            "KP_2"    : ["ninethes", 0, 7],
+            "KP_3"    : ["ninethes", 0, 8],
+            "KP_4"    : ["ninethes", 0, 3],
+            "KP_5"    : ["ninethes", 0, 4],
+            "KP_6"    : ["ninethes", 0, 5],
+            "KP_7"    : ["ninethes", 0],
+            "KP_8"    : ["ninethes", 0, 1],
+            "KP_9"    : ["ninethes", 0, 2]
+        },
+        "KP_8":
+        {
+            "KP_Enter": ["halves", 1],
+            "KP_1"    : ["ninethes", 1, 6],
+            "KP_2"    : ["ninethes", 1, 7],
+            "KP_3"    : ["ninethes", 1, 8],
+            "KP_4"    : ["ninethes", 1, 3],
+            "KP_5"    : ["ninethes", 1, 4],
+            "KP_6"    : ["ninethes", 1, 5],
+            "KP_7"    : ["ninethes", 1, 0],
+            "KP_8"    : ["ninethes", 1],
+            "KP_9"    : ["ninethes", 1, 2]
+        },
+        "KP_9":
+        {
+            "KP_Enter": ["fourthes", 1],
+            "KP_1"    : ["ninethes", 2, 6],
+            "KP_2"    : ["ninethes", 2, 7],
+            "KP_3"    : ["ninethes", 2, 8],
+            "KP_4"    : ["ninethes", 2, 3],
+            "KP_5"    : ["ninethes", 2, 4],
+            "KP_6"    : ["ninethes", 2, 5],
+            "KP_7"    : ["ninethes", 2, 0],
+            "KP_8"    : ["ninethes", 2, 1],
+            "KP_9"    : ["ninethes", 2]
+        }
+    }
+}

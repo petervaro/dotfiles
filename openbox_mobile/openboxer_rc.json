@@ -1,0 +1,111 @@
+{
+    "main_keys": ["W", "Menu"],
+    "screen_matrices":
+    {
+        "center":
+        [
+            {
+                "x"     : 283,
+                "y"     : 144,
+                "width" : 800,
+                "height": 480
+            }
+        ],
+        "halves":
+        [
+            {
+                "x"     : 0,
+                "y"     : 0,
+                "width" : 683,
+                "height": 768
+            },
+            {
+                "x"     : 0,
+                "y"     : 0,
+                "width" : 1366,
+                "height": 384
+            },
+            {
+                "x"     : 683,
+                "y"     : 0,
+                "width" : 683,
+                "height": 768
+            },
+            {
+                "x"     : 0,
+                "y"     : 384,
+                "width" : 1366,
+                "height": 384
+            }
+        ],
+        "fourthes":
+        [
+            {
+                "x"     : 0,
+                "y"     : 0,
+                "width" : 683,
+                "height": 384
+            },
+            {
+                "x"     : 683,
+                "y"     : 0,
+                "width" : 683,
+                "height": 384
+            },
+            {
+                "x"     : 0,
+                "y"     : 384,
+                "width" : 683,
+                "height": 384
+            },
+            {
+                "x"     : 683,
+                "y"     : 384,
+                "width" : 683,
+                "height": 384
+            }
+        ]
+    },
+    "screen_key_chains":
+    {
+        "Prior":
+        {
+            "Up"   : ["halves", 1],
+            "Left" : ["fourthes", 1],
+            "Right": ["fourthes", 0],
+            "Down" : ["center", 0]
+        },
+        "End":
+        {
+            "Up"   : ["fourthes", 0],
+            "Left" : ["center", 0],
+            "Right": ["halves", 2],
+            "Down" : ["fourthes", 3]
+        },
+        "Next":
+        {
+            "Up"   : ["center", 0],
+            "Left" : ["fourthes", 2],
+            "Right": ["fourthes", 3],
+            "Down" : ["halves", 3]
+        },
+        "Home":
+        {
+            "Up"   : ["fourthes", 1],
+            "Left" : ["halves", 0],
+            "Right": ["center", 0],
+            "Down" : ["fourthes", 2]
+        }
+    },
+    "diverge":
+    {
+        "ToggleMaximize":
+        {
+            "key": "minus"
+        },
+        "ToggleFullscreen":
+        {
+            "key": "equal"
+        }
+    }
+}
