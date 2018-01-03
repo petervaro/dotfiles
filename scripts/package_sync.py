@@ -161,8 +161,11 @@ def query():
     """
     List all transaction from oldest to youngest
     """
-    with open(join(SYNC_PATH, HEAD_NAME)) as head:
-        head_file = head.read()
+    try:
+        with open(join(SYNC_PATH, HEAD_NAME)) as head:
+            head_file = head.read()
+    except FileNotFoundError:
+        head_file = None
 
     for file_name in _sorted_file_names(reverse=False):
         print(file_name,
