@@ -6,7 +6,6 @@
             "parameters":
             [
                 "alsa-utils",
-                "alsi",
                 "aspell",
                 "aspell-en",
                 "blender",
@@ -16,7 +15,7 @@
                 "colordiff",
                 "compton",
                 "cool-retro-term",
-                "dispcalgui",
+                "displaycal",
                 "dlang",
                 "duplicity",
                 "firefox",
@@ -83,6 +82,7 @@
             "command": ["pacaur", "-S", "--needed", "--noedit", "--noconfirm"],
             "parameters":
             [
+                "alsi",
                 "bpython",
                 "bpython2",
                 "cdecl",
