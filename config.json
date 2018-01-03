@@ -1,92 +1,175 @@
-{
-    "openbox":
-    {
-        "variants":
+[
+    [
+        "backup_home_folder_service",
         {
-            "home": "openbox_home",
-            "work": "openbox_work"
-        },
-        "name": "openbox",
-        "path": "~/.config"
-    },
-    "dunst":
-    {
-        "path": "~/.config"
-    },
-    "package_sync":
-    {
-        "name": ".package_sync",
-        "path": "~"
-    },
-    "Xresources":
-    {
-        "name": ".Xresources",
-        "path": "~"
-    },
-    "bash_aliases":
-    {
-        "name": ".bash_aliases",
-        "path": "~"
-    },
-    "bash_profile":
-    {
-        "name": ".bash_profile",
-        "path": "~"
-    },
-    "bashrc":
-    {
-        "name": ".bashrc",
-        "path": "~"
-    },
-    "lxtask.conf":
-    {
-        "path": "~/.config"
-    },
-    "nanorc":
-    {
-        "name": ".nanorc",
-        "path": "~"
-    },
-    "nordvpn_servers":
-    {
-        "name": ".nordvpn_servers",
-        "path": "~"
-    },
-    "tmux.conf":
-    {
-        "name": ".tmux.conf",
-        "path": "~"
-    },
-    "xinitrc":
-    {
-        "name": ".xinitrc",
-        "path": "~"
-    },
-    "scripts":
-    {
-        "name": ".scripts",
-        "path": "~"
-    },
-    "resources":
-    {
-        "name": ".resources",
-        "path": "~"
-    },
-    "rofi_config":
-    {
-        "name": "config",
-        "path": "~/.config/rofi"
-    },
-    "bin/nordvpn":
-    {
-        "name": "nordvpn",
-        "path": "/usr/local/bin",
-        "sudo": true
-    },
-    "bin/ufwrules":
-    {
-        "name": "ufwrules",
-        "path": "/usr/local/bin",
-        "sudo": true
-    }
-}
+            "variants":
+            {
+                "home": "backup.service",
+                "work": null,
+                "mobile": null
+            },
+            "path": "/etc/systemd/system",
+            "sudo": true
+        }
+    ],
+    [
+        "backup_home_folder_timer",
+        {
+            "variants":
+            {
+                "home": "backup.timer",
+                "work": null,
+                "mobile": null
+            },
+            "path": "/etc/systemd/system",
+            "sudo": true,
+            "post":
+            {
+                "sudo": true,
+                "commands":
+                [
+                    ["systemctl", "enable", "backup.timer"],
+                    ["systemctl", "start", "backup.timer"]
+                ]
+            }
+        }
+    ],
+    [
+        "bash_aliases",
+        {
+            "name": ".bash_aliases",
+            "path": "~"
+        }
+    ],
+    [
+        "bash_profile",
+        {
+            "name": ".bash_profile",
+            "path": "~"
+        }
+    ],
+    [
+        "bashrc",
+        {
+            "name": ".bashrc",
+            "path": "~"
+        }
+    ],
+    [
+        "bin/nordvpn",
+        {
+            "name": "nordvpn",
+            "path": "/usr/local/bin",
+            "sudo": true
+        }
+    ],
+    [
+        "bin/ufwrules",
+        {
+            "name": "ufwrules",
+            "path": "/usr/local/bin",
+            "sudo": true
+        }
+    ],
+    [
+        "dunst",
+        {
+            "path": "~/.config"
+        }
+    ],
+    [
+        "krulerrc",
+        {
+            "name": ".krulerrc",
+            "path": "~/.config"
+        }
+    ],
+    [
+        "lxtask.conf",
+        {
+            "path": "~/.config"
+        }
+    ],
+    [
+        "nanorc",
+        {
+            "name": ".nanorc",
+            "path": "~"
+        }
+    ],
+    [
+        "nordvpn_servers",
+        {
+            "name": ".nordvpn_servers",
+            "path": "~"
+        }
+    ],
+    [
+        "openbox",
+        {
+            "variants":
+            {
+                "home": "openbox_home",
+                "work": "openbox_work",
+                "mobile": "openbox_mobile"
+            },
+            "name": "openbox",
+            "path": "~/.config"
+        }
+    ],
+    [
+        "package_sync",
+        {
+            "name": ".package_sync",
+            "path": "~"
+        }
+    ],
+    [
+        "resources",
+        {
+            "name": ".resources",
+            "path": "~"
+        }
+    ],
+    [
+        "rofi_config",
+        {
+            "name": "config",
+            "path": "~/.config/rofi"
+        }
+    ],
+    [
+        "scripts",
+        {
+            "name": ".scripts",
+            "path": "~"
+        }
+    ],
+    [
+        "thunar.xml",
+        {
+            "path": "~/.config/xfce4/xfconf/xfce-perchannel-xml"
+        }
+    ],
+    [
+        "tmux.conf",
+        {
+            "name": ".tmux.conf",
+            "path": "~"
+        }
+    ],
+    [
+        "Xresources",
+        {
+            "name": ".Xresources",
+            "path": "~"
+        }
+    ],
+    [
+        "xinitrc",
+        {
+            "name": ".xinitrc",
+            "path": "~"
+        }
+    ]
+]

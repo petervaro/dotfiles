@@ -1,0 +1,19 @@
+- do something with the custom .desktop files
+- install.py should compile the binaries to the bin/ and then install them
+- use systemd/Timers to setup an automated backup mechanism for firefox:
+    - https://support.mozilla.org/en-US/questions/1121064
+- add sublime preferences to dotfiles
+- add the installation guide here
+- create basic post-installation package_sync files for different targets:
+    - virtual (headless)
+    - virtual (with X11)
+    - full (with X11)
+- switch to QEMU from VBox, create different targets:
+    - headless Arch (master, work)
+    - Arch with X11 (test)
+    - Windows
+    - macOS
+- setup taskwarrior properly with automated sync
+- decide what to do with the vms backup mechanims (in case of doing so, add the
+  following line to the backup.service ([Service] can have multiple ExecStart):
+  ExecStart=/usr/bin/duplicity incremental --no-encryption --name='vms_backup' --verbosity=4 --volsize=256 --compare-data --tempdir='/tmp' --archive-dir='/tmp' --exclude='/vms/lost+found' /vms file:///backup/vms)

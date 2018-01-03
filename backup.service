@@ -1,0 +1,7 @@
+[Unit]
+Description=Run duplicity based backup
+
+[Service]
+User=root
+Type=oneshot
+ExecStart=/usr/bin/duplicity incremental --no-encryption --name='home_backup' --verbosity=4 --volsize=256 --compare-data --tempdir='/tmp' --archive-dir='/tmp' --exclude='/home/petervaro/downloads' --exclude='/home/lost+found' --exclude='/home/petervaro/.*' /home file:///backup/home

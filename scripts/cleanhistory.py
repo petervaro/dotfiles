@@ -44,6 +44,17 @@ EXCLUDE  = ('cd',
             'ping',
             'wget',
             'youtube-dl',
+            'killall',
+            'leafpad',
+            'subl',
+            'pacaur',
+            'pass find',
+            'pip install',
+            'plank',
+            'task add',
+            'thunar',
+            'which',
+            'focus',
             './')
 EXCLUDE += tuple('sudo {}'.format(cmd) for cmd in EXCLUDE)
 

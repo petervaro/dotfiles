@@ -1,0 +1,32 @@
+{
+    "references":
+    {
+        "new":
+        [
+            "viewnior",
+            "kruler"
+        ],
+        "old":
+        [
+            "gnome-screenruler"
+        ]
+    },
+    "upgrade":
+    [
+        {
+            "sudo pacman -S": "new"
+        },
+        {
+            "sudo pacman -Rns": "old"
+        },
+    ],
+    "downgrade":
+    [
+        {
+            "sudo pacman -Rns": "new"
+        },
+        {
+            "pacaur -S": "old"
+        }
+    ]
+}

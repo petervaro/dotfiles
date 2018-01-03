@@ -230,7 +230,6 @@
 
     <!-- Keybindings for move window to the other monitor -->
     <keybind key="W-KP_0">
-        <action name="UnmaximizeFull"/>
         <action name="If">
             <query target="focus">
                 <monitor>1</monitor>
@@ -1168,7 +1167,7 @@
         </action>
     </keybind>
 
-    <!-- Keybindings to switch to the NEXT window -->
+    <!-- Keybindings to switch to the NEXT window of all desktops -->
     <keybind key="W-Tab">
         <action name="NextWindow">
             <allDesktops>yes</allDesktops>
@@ -1182,7 +1181,7 @@
             </finalactions>
         </action>
     </keybind>
-    <!-- Alias for the NEXT window -->
+    <!-- Alias for the NEXT window of all desktops-->
     <keybind key="W-Down">
         <action name="NextWindow">
             <allDesktops>yes</allDesktops>
@@ -1196,7 +1195,37 @@
             </finalactions>
         </action>
     </keybind>
-    <!-- Keybindings to switch to the PREVIOUS window -->
+
+    <!-- Keybindings to switch to the NEXT window of current destop -->
+    <keybind key="C-W-Tab">
+        <action name="NextWindow">
+            <allDesktops>no</allDesktops>
+            <dialog>list</dialog>
+            <bar>yes</bar>
+            <raise>yes</raise>
+            <finalactions>
+                <action name="Focus"/>
+                <action name="Raise"/>
+                <action name="Unshade"/>
+            </finalactions>
+        </action>
+    </keybind>
+    <!-- Alias for the NEXT window of current desktop -->
+    <keybind key="C-W-Down">
+        <action name="NextWindow">
+            <allDesktops>no</allDesktops>
+            <dialog>list</dialog>
+            <bar>yes</bar>
+            <raise>yes</raise>
+            <finalactions>
+                <action name="Focus"/>
+                <action name="Raise"/>
+                <action name="Unshade"/>
+            </finalactions>
+        </action>
+    </keybind>
+
+    <!-- Keybindings to switch to the PREVIOUS window of all desktops -->
     <keybind key="W-S-Tab">
         <action name="PreviousWindow">
             <allDesktops>yes</allDesktops>
@@ -1210,7 +1239,7 @@
             </finalactions>
         </action>
     </keybind>
-    <!-- Alias for the PREVIOUS window -->
+    <!-- Alias for the PREVIOUS window of all desktops -->
     <keybind key="W-Up">
         <action name="PreviousWindow">
             <allDesktops>yes</allDesktops>
@@ -1225,6 +1254,34 @@
         </action>
     </keybind>
 
+    <!-- Keybindings to switch to the PREVIOUS window of current desktop -->
+    <keybind key="C-W-S-Tab">
+        <action name="PreviousWindow">
+            <allDesktops>no</allDesktops>
+            <dialog>list</dialog>
+            <bar>yes</bar>
+            <raise>yes</raise>
+            <finalactions>
+                <action name="Focus"/>
+                <action name="Raise"/>
+                <action name="Unshade"/>
+            </finalactions>
+        </action>
+    </keybind>
+    <!-- Alias for the PREVIOUS window of current desktop -->
+    <keybind key="C-W-Up">
+        <action name="PreviousWindow">
+            <allDesktops>no</allDesktops>
+            <dialog>list</dialog>
+            <bar>yes</bar>
+            <raise>yes</raise>
+            <finalactions>
+                <action name="Focus"/>
+                <action name="Raise"/>
+                <action name="Unshade"/>
+            </finalactions>
+        </action>
+    </keybind>
 
     <!-- Session management -->
     <keybind key="W-Escape">
@@ -1312,9 +1369,13 @@
 
     <context name="Frame">
         <mousebind button="W-Left" action="Drag">
+            <action name="Focus"/>
+            <action name="Raise"/>
             <action name="Move"/>
         </mousebind>
         <mousebind button="W-Right" action="Drag">
+            <action name="Focus"/>
+            <action name="Raise"/>
             <action name="Resize"/>
         </mousebind>
     </context>

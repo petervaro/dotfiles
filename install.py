@@ -38,7 +38,9 @@ def install(source,
             destination_path,
             destination_name,
             remove_existing,
-            require_sudo=False):
+            require_sudo=False,
+            post_require_sudo=False,
+            post_commands=()):
     destination = join(destination_path, destination_name)
     if exists(destination):
         if remove_existing:
@@ -75,24 +77,44 @@ def install(source,
     else:
         symlink(source, destination)
 
+    for commands in post_commands:
+        print('Running post installation commands:', end=' ')
+        if post_require_sudo:
+            print(SUDO_BIN, *commands)
+            run((SUDO_BIN, *commands))
+        else:
+            print(*commands)
+            run(commands)
+
 with open('config.json') as json:
-    for node, prefs in load(json).items():
+    for node, prefs in load(json):
         try:
             variants = prefs['variants']
             if variant is None:
                 print('Variant is required but it is not defined, '
-                      f'skipping: {node!r}')
-                continue
+                      f'skipping: {node!r}', file=stderr)
+                exit(1)
             try:
                 node = variants[variant]
+                if node is None:
+                    print('Skip installing: variant defined as null')
+                    continue
             except KeyError:
-                print(f'Invalid variant: {variant!r}, for: {node!r}')
-                continue
+                print(f'Invalid variant: {variant!r}, for: {node!r}',
+                      file=stderr)
+                exit(1)
         except KeyError:
             pass
 
+        post_commands = prefs.get('post', {})
         install(abspath(node),
                 expanduser(prefs['path']),
                 prefs.get('name', node),
                 remove_existing,
-                prefs.get('sudo'))
+                prefs.get('sudo'),
+                post_commands and post_commands.get('sudo', False),
+                post_commands and post_commands.get('commands', ()))
+
+# Install 3rd party dotfiles
+print('Installing 3rd party scripts')
+run(('bash', 'third_party.sh'))
