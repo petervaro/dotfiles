@@ -35,19 +35,23 @@
     "upgrade":
     [
         {
-            "sudo pacman -Rns": "old"
+            "command": ["sudo", "pacman", "-Rns"],
+            "parameters": "old"
         },
         {
-            "sudo pacman -S": "new"
+            "command": ["sudo", "pacman", "-S"],
+            "parameters": "new"
         }
     ],
     "downgrade":
     [
         {
-            "sudo pacman -Rns": "new"
+            "command": ["sudo", "pacman", "-Rns"],
+            "parameters": "new"
         },
         {
-            "sudo pacman -S": "old"
+            "command": ["sudo", "pacman", "-S"],
+            "parameters": "old"
         }
     ]
 }

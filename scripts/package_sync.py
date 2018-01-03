@@ -18,10 +18,11 @@ argv = iter(islice(argv, 1, None))
 #------------------------------------------------------------------------------#
 def _execute_transaction(transaction_json, transaction_name):
     for transaction in transaction_json[transaction_name]:
-        for command, parameters in transaction.items():
-            if isinstance(parameters, str):
-                parameters = transaction_json['references'][parameters]
-            run(command.split() + parameters)
+        command = transaction['command']
+        parameters = transaction.get('parameters', [])
+        if isinstance(parameters, str):
+            parameters = transaction_json['references'][parameters]
+        run(command + parameters)
 
 
 #------------------------------------------------------------------------------#

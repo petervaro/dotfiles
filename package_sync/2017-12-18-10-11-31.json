@@ -14,19 +14,23 @@
     "upgrade":
     [
         {
-            "sudo pacman -S": "new"
+            "command": ["sudo", "pacman", "-S"],
+            "parameters": "new"
         },
         {
-            "sudo pacman -Rns": "old"
+            "command": ["sudo", "pacman", "-Rns"],
+            "parameters": "old"
         },
     ],
     "downgrade":
     [
         {
-            "sudo pacman -Rns": "new"
+            "command": ["sudo", "pacman", "-Rns"],
+            "parameters": "new"
         },
         {
-            "pacaur -S": "old"
+            "command": ["pacaur", "-S", "--noedit", "--noconfirm"],
+            "parameters": "old"
         }
     ]
 }

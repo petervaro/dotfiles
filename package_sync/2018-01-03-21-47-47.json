@@ -1,0 +1,14 @@
+{
+    "upgrade":
+    [
+        {
+            "command": ["sudo", "pacman", "-Rns"],
+            "parameters": ["arc-gtk-theme"]
+        },
+        {
+            "command": ["pacaur", "-S", "--needed", "--noedit", "--noconfirm"],
+            "parameters": ["arc-gtk-theme-git"]
+        }
+    ],
+    "downgrade": []
+}

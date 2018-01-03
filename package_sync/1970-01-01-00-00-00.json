@@ -1,0 +1,123 @@
+{
+    "upgrade":
+    [
+        {
+            "command": ["sudo", "pacman", "-S", "--needed"],
+            "parameters":
+            [
+                "alsa-utils",
+                "alsi",
+                "aspell",
+                "aspell-en",
+                "blender",
+                "chromium",
+                "clang",
+                "cloc",
+                "colordiff",
+                "compton",
+                "cool-retro-term",
+                "dispcalgui",
+                "dlang",
+                "duplicity",
+                "firefox",
+                "fontforge",
+                "gimp",
+                "glances",
+                "go",
+                "gparted",
+                "gpick",
+                "gucharmap",
+                "gvfs",
+                "gvfs-afc",
+                "gvfs-smb",
+                "hedgewars",
+                "weechat",
+                "htop",
+                "i3lock",
+                "inkscape",
+                "krita",
+                "libreoffice",
+                "linux-headers",
+                "lshw",
+                "mc",
+                "moc",
+                "musl",
+                "ntp",
+                "openra",
+                "openssh",
+                "p7zip",
+                "pass",
+                "pavucontrol",
+                "plank",
+                "pulseaudio",
+                "pulseaudio-alsa",
+                "python-pip",
+                "python2",
+                "python2-pip",
+                "rsync",
+                "subtitleeditor",
+                "syncthing",
+                "urxvt",
+                "tk",
+                "transmission-gtk",
+                "trash-cli",
+                "tree",
+                "tup",
+                "unrar",
+                "unzip",
+                "valgring",
+                "wtf",
+                "xarchiver",
+                "xdg-user-dirs",
+                "xdotool",
+                "xorg-apps",
+                "xorg-server",
+                "xorg-server-devel",
+                "xorg-xinit",
+                "youtube-dl",
+                "zip"
+            ]
+        },
+        {
+            "command": ["pacaur", "-S", "--needed", "--noedit", "--noconfirm"],
+            "parameters":
+            [
+                "bpython",
+                "bpython2",
+                "cdecl",
+                "clipit",
+                "cli-visualizer",
+                "colormake",
+                "faba-icon-theme-git",
+                "fonts-meta-extended-lt",
+                "moka-icon-theme-git",
+                "openarena",
+                "peerflix",
+                "prettyping",
+                "speedometer",
+                "tuptime",
+                "tty-clock",
+                "xcursor-openzone"
+            ]
+        },
+        {
+            "command": ["ln", "-s", "/etc/fonts/conf.avail/11-lcdfilter-default.conf", "/etc/fonts/conf.d"]
+        },
+        {
+            "command": ["ln", "-s", "/etc/fonts/conf.avail/10-sub-pixel-rgb.conf", "/etc/fonts/conf.d"]
+        },
+        {
+            "command": ["ln", "-s", "-f", "/etc/fonts/conf.avail/10-hinting-slight.conf", "/etc/fonts/conf.d"]
+        },
+        {
+            "command": ["ln", "-s", "/etc/fonts/conf.avail/30-infinality-aliases.conf", "/etc/fonts/conf.d"]
+        },
+        {
+            "command": ["sudo", "systemctl", "enable", "ntpd.service"]
+        },
+        {
+            "command": ["xdg-user-dirs-update"]
+        }
+    ],
+    "downgrade": []
+}
