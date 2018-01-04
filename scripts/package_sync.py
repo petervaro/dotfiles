@@ -14,15 +14,19 @@ DATE_FORMAT = '%Y-%m-%d-%H-%M-%S'
 HEAD_NAME   = '__HEAD__'
 
 argv = iter(islice(argv, 1, None))
+dry_run = False
 
 #------------------------------------------------------------------------------#
 def _execute_transaction(transaction_json, transaction_name):
     for transaction in transaction_json[transaction_name]:
-        command = transaction['command']
         parameters = transaction.get('parameters', [])
         if isinstance(parameters, str):
             parameters = transaction_json['references'][parameters]
-        run(command + parameters)
+        command = transaction['command'] + parameters
+        if dry_run:
+            print('$', *command)
+        else:
+            run(command + parameters)
 
 
 #------------------------------------------------------------------------------#
@@ -86,6 +90,9 @@ OPTIONS
         Executes step number of files before the current HEAD.  If step is not
         given it defaults to 1.  Step can be a negative number for convenience.
 
+    --dry
+        Dry run.
+
 AUTHOR
     Written by Peter Varo.
 
@@ -118,8 +125,13 @@ def new():
     except StopIteration:
         print('Missing positional argument: editor', file=stderr)
         exit(1)
-    file_name = f"{datetime.now().strftime(DATE_FORMAT)}.json"
-    run((editor, join(SYNC_PATH, file_name)))
+    command = editor, join(SYNC_PATH,
+                           f'{datetime.now().strftime(DATE_FORMAT)}.json')
+    if dry_run:
+        print('$', *command)
+    else:
+        run(command)
+    return True
 
 
 #------------------------------------------------------------------------------#
@@ -137,7 +149,12 @@ def last():
         print('No transaction file found in: {SYNC_PATH}')
         exit(0)
 
-    run((editor, join(SYNC_PATH, file_names[0])))
+    command = editor, join(SYNC_PATH, file_names[0])
+    if dry_run:
+        print('$', *command)
+    else:
+        run(command)
+    return True
 
 
 #------------------------------------------------------------------------------#
@@ -155,8 +172,12 @@ def set_():
         print(f'Not a file: {join(SYNC_PATH, file_name)}', file=stderr)
         exit(1)
 
-    with open(join(SYNC_PATH, HEAD_NAME), 'w') as head:
-        head.write(file_name)
+    if dry_run:
+        print(f'$ echo {file_name!r} > {join(SYNC_PATH, HEAD_NAME)}')
+    else:
+        with open(join(SYNC_PATH, HEAD_NAME), 'w') as head:
+            head.write(file_name)
+    return True
 
 
 #------------------------------------------------------------------------------#
@@ -173,6 +194,7 @@ def query():
     for file_name in _sorted_file_names(reverse=False):
         print(file_name,
               end=' [HEAD]\n' if file_name == head_file else '\n')
+    return True
 
 
 #------------------------------------------------------------------------------#
@@ -186,6 +208,7 @@ def validate():
                 load(json)
         except Exception as error:
             print(f'Validation failed for {file_name!r}: {error}')
+    return True
 
 
 #------------------------------------------------------------------------------#
@@ -194,6 +217,8 @@ def upgrade():
     Execute all transactions since the current HEAD
     """
     head_path = join(SYNC_PATH, HEAD_NAME)
+
+    # TODO: Proper dry_run should not create and/or edit the HEAD
 
     if not isfile(head_path):
         open(head_path, 'a').close()
@@ -212,6 +237,7 @@ def upgrade():
         head.seek(0)
         head.write(file_name)
         head.truncate()
+    return True
 
 
 #------------------------------------------------------------------------------#
@@ -221,8 +247,11 @@ def downgrade():
     """
     head_path = join(SYNC_PATH, HEAD_NAME)
 
+    # TODO: Proper dry_run should not create and/or edit the HEAD
+
     if not isfile(head_path):
-        return print('HEAD is not set (run --upgrade or --set)')
+        print('HEAD is not set. Try --upgrade or --set')
+        exit(1)
 
     with open(join(SYNC_PATH, HEAD_NAME), 'r+') as head:
         file_name = head_file = head.read()
@@ -246,31 +275,40 @@ def downgrade():
         head.seek(0)
         head.write(file_name)
         head.truncate()
+    return True
+
+
+#------------------------------------------------------------------------------#
+def dry():
+    global dry_run
+    dry_run = True
 
 
 #------------------------------------------------------------------------------#
 if __name__ == '__main__':
+    callbacks = {'-h'          : help,
+                 '-help'       : help,
+                 '--help'      : help,
+                 'help'        : help,
+                 '-n'          : new,
+                 '--new'       : new,
+                 '-s'          : set_,
+                 '--set'       : set_,
+                 '-l'          : last,
+                 '--last'      : last,
+                 '-u'          : upgrade,
+                 '--upgrade'   : upgrade,
+                 '-d'          : downgrade,
+                 '--downgrade' : downgrade,
+                 '-v'          : validate,
+                 '--validate'  : validate,
+                 '-q'          : query,
+                 '--query'     : query,
+                 '--dry'       : dry}
     try:
-        {'-h'          : help,
-         '-help'       : help,
-         '--help'      : help,
-         'help'        : help,
-         '-n'          : new,
-         '--new'       : new,
-         '-s'          : set_,
-         '--set'       : set_,
-         '-l'          : last,
-         '--last'      : last,
-         '-u'          : upgrade,
-         '--upgrade'   : upgrade,
-         '-d'          : downgrade,
-         '--downgrade' : downgrade,
-         '-v'          : validate,
-         '--validate'  : validate,
-         '-q'          : query,
-         '--query'     : query}[next(argv)]()
-    except KeyError:
-        print('Invalid sub-command. Try --help', file=stderr)
+        for arg in argv:
+            if callbacks[arg]():
+                break
+    except KeyError as error:
+        print(f'Invalid sub-command: {error!r}. Try --help', file=stderr)
         exit(1)
-    except StopIteration:
-        exit(0)
