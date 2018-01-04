@@ -14,7 +14,7 @@
     "upgrade":
     [
         {
-            "command": ["sudo", "pacman", "-S"],
+            "command": ["sudo", "pacman", "-S", "--needed"],
             "parameters": "new"
         },
         {
@@ -29,7 +29,7 @@
             "parameters": "new"
         },
         {
-            "command": ["pacaur", "-S", "--noedit", "--noconfirm"],
+            "command": ["pacaur", "-S", "--needed", "--noedit", "--noconfirm"],
             "parameters": "old"
         }
     ]

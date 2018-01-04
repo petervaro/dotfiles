@@ -1,7 +1,7 @@
 {
     "references":
     {
-        "new":
+        "new_pacman":
         [
             "dunst",
             "feh",
@@ -18,6 +18,9 @@
             "thunar-archive-plugin",
             "thunar-volman",
             "tumbler",
+        ],
+        "new_pacaur":
+        [
             "xiccd"
         ],
         "old":
@@ -39,18 +42,26 @@
             "parameters": "old"
         },
         {
-            "command": ["sudo", "pacman", "-S"],
-            "parameters": "new"
+            "command": ["sudo", "pacman", "-S", "--needed"],
+            "parameters": "new_pacman"
+        },
+        {
+            "command": ["pacaur", "-S", "--needed", "--noedit", "--noconfirm"],
+            "parameters": "new_pacaur"
         }
     ],
     "downgrade":
     [
         {
             "command": ["sudo", "pacman", "-Rns"],
-            "parameters": "new"
+            "parameters": "new_pacman"
         },
         {
-            "command": ["sudo", "pacman", "-S"],
+            "command": ["sudo", "pacman", "-Rns"],
+            "parameters": "new_pacaur"
+        },
+        {
+            "command": ["sudo", "pacman", "-S", "--needed"],
             "parameters": "old"
         }
     ]
