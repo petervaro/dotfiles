@@ -19,7 +19,7 @@ compton -r 16 -o .35 -l -24 -t -16 -D 4 -c -C -G --backend glx \
 # Set wallpapers
 feh --no-fehbg \
     --bg-center \
-    /home/petervaro/documents/personal/remote/dotfiles/resources/80s_grid_single_mobile.png;
+    /home/petervaro/documents/personal/remote/dotfiles/resources/80s_grid_single_notebook.png;
 
 # Start docks
 plank --name dock1 &

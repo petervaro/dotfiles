@@ -1,20 +1,22 @@
 ## INFO ##
 ## INFO ##
 
-from datetime   import datetime
-from itertools  import islice
-from json       import load
-from os         import listdir
-from os.path    import join, expanduser, isfile
-from subprocess import run
-from sys        import argv, exit, stderr
+from datetime    import datetime
+from itertools   import islice, zip_longest
+from json        import load
+from os          import listdir
+from os.path     import join, expanduser, isfile
+from subprocess  import run
+from sys         import argv, exit, stderr
+from tempfile    import TemporaryFile
 
 SYNC_PATH   = expanduser('~/.package_sync')
 DATE_FORMAT = '%Y-%m-%d-%H-%M-%S'
 HEAD_NAME   = '__HEAD__'
 
-argv = iter(islice(argv, 1, None))
-dry_run = False
+ARGV    = iter(islice(argv, 1, None))
+DRY_RUN = False
+VARIANT = None
 
 #------------------------------------------------------------------------------#
 def _execute_transaction(transaction_json, transaction_name):
@@ -22,8 +24,13 @@ def _execute_transaction(transaction_json, transaction_name):
         parameters = transaction.get('parameters', [])
         if isinstance(parameters, str):
             parameters = transaction_json['references'][parameters]
-        command = transaction['command'] + parameters
-        if dry_run:
+        command  = transaction['command'] + parameters
+        variants = transaction.get('variants')
+        if (VARIANT is not None and
+            variants is not None and
+            VARIANT not in variants):
+                continue
+        elif DRY_RUN:
             print('$', *command)
         else:
             run(command + parameters)
@@ -80,7 +87,10 @@ OPTIONS
     -q, --query
         Shows all the transaction files and indicating which one is the HEAD.
 
-    -v, --validate
+    -v, --variant variant
+        Specify subset of transactions that should be executed.
+
+    -V, --validate
         Validates the transaction files.
 
     -u, --upgrade
@@ -88,10 +98,98 @@ OPTIONS
 
     -d, --downgrade [step]
         Executes step number of files before the current HEAD.  If step is not
-        given it defaults to 1.  Step can be a negative number for convenience.
+        given it defaults to 1.
 
-    --dry
+    -D, --dry
         Dry run.
+
+TRANSACTION
+
+    Each transaction file shall be a valid JSON one.  The top-level object shall
+    be an Object, which must have the following keys:
+        - upgrade
+        - downgrade
+
+    The corresponding values of these keys are Arrays of Objects.  Each of these
+    Objects must have the following keys:
+        - command
+    and may have the following keys:
+        - parameters
+        - variants
+
+    The top-level Object may have the following keys:
+        - references
+
+    Example:
+    {
+        "references":
+        {
+            "new":
+            [
+                "package-1",
+                "package-2
+            ],
+            "old":
+            [
+                "package-0"
+            ]
+        },
+        "upgrade":
+        [
+            {
+                "command": ["sudo", "pacman", "-Rns", "another-package"]
+            },
+            {
+                "command": ["sudo", "pacman", "-Rns"],
+                "parameters":
+                [
+                    "this-package",
+                    "that-package"
+                ]
+            },
+            {
+                "command": ["sudo", "pacman", "-Rns"],
+                "parameters": "old",
+                "variants":
+                [
+                    "computer-1"
+                ]
+            },
+            {
+                "command": ["sudo", "pacman", "-S", "--needed"],
+                "parameters": "new"
+            }
+        ],
+        "downgrade":
+        [
+            {
+                "command": ["sudo", "pacman", "-Rns"],
+                "parameters": "new"
+            },
+            {
+                "command": ["sudo", "pacman", "-S", "--needed"],
+                "parameters": "old",
+                "variants":
+                [
+                    "computer-1"
+                ]
+            },
+            {
+                "command": ["sudo", "pacman", "-S", "--needed"],
+                "parameters":
+                [
+                    "this-package",
+                    "that-package"
+                ]
+            },
+            {
+                "command":
+                [
+                    "sudo", "pacman", "-S", "--needed", "another-package"
+                ]
+            }
+        ]
+    }
 
 AUTHOR
     Written by Peter Varo.
@@ -116,18 +214,17 @@ LICENSE
 
 
 #------------------------------------------------------------------------------#
-def new():
+def new(editor):
     """
     Create a new transaction file
     """
-    try:
-        editor = next(argv)
-    except StopIteration:
+    if editor is None:
         print('Missing positional argument: editor', file=stderr)
         exit(1)
+
     command = editor, join(SYNC_PATH,
                            f'{datetime.now().strftime(DATE_FORMAT)}.json')
-    if dry_run:
+    if DRY_RUN:
         print('$', *command)
     else:
         run(command)
@@ -135,13 +232,11 @@ def new():
 
 
 #------------------------------------------------------------------------------#
-def last():
+def last(editor):
     """
     Open last transaction file
     """
-    try:
-        editor = next(argv)
-    except StopIteration:
+    if editor is None:
         editor = 'cat'
 
     file_names = _sorted_file_names(reverse=True)
@@ -150,7 +245,7 @@ def last():
         exit(0)
 
     command = editor, join(SYNC_PATH, file_names[0])
-    if dry_run:
+    if DRY_RUN:
         print('$', *command)
     else:
         run(command)
@@ -158,13 +253,11 @@ def last():
 
 
 #------------------------------------------------------------------------------#
-def set_():
+def set_(file_name):
     """
     Set head to given file without executing any transactions
     """
-    try:
-        file_name = next(argv)
-    except StopIteration:
+    if file_name is None:
         print('Missing positional argument: file name', file=stderr)
         exit(1)
 
@@ -172,7 +265,7 @@ def set_():
         print(f'Not a file: {join(SYNC_PATH, file_name)}', file=stderr)
         exit(1)
 
-    if dry_run:
+    if DRY_RUN:
         print(f'$ echo {file_name!r} > {join(SYNC_PATH, HEAD_NAME)}')
     else:
         with open(join(SYNC_PATH, HEAD_NAME), 'w') as head:
@@ -218,8 +311,6 @@ def upgrade():
     """
     head_path = join(SYNC_PATH, HEAD_NAME)
 
-    # TODO: Proper dry_run should not create and/or edit the HEAD
-
     if not isfile(head_path):
         open(head_path, 'a').close()
 
@@ -234,20 +325,19 @@ def upgrade():
             elif file_name == head_file:
                 execute_transaction = True
 
-        head.seek(0)
-        head.write(file_name)
-        head.truncate()
+        if not DRY_RUN:
+            head.seek(0)
+            head.write(file_name)
+            head.truncate()
     return True
 
 
 #------------------------------------------------------------------------------#
-def downgrade():
+def downgrade(counter):
     """
     Execute n transactions before the current HEAD
     """
     head_path = join(SYNC_PATH, HEAD_NAME)
-
-    # TODO: Proper dry_run should not create and/or edit the HEAD
 
     if not isfile(head_path):
         print('HEAD is not set. Try --upgrade or --set')
@@ -257,7 +347,7 @@ def downgrade():
         file_name = head_file = head.read()
 
         try:
-            counter = abs(int(next(argv)))
+            counter = int(counter)
         except Exception:
             counter = 1
 
@@ -272,43 +362,83 @@ def downgrade():
                     _execute_transaction(load(json), 'downgrade')
                 counter -= 1
 
-        head.seek(0)
-        head.write(file_name)
-        head.truncate()
+        if not DRY_RUN:
+            head.seek(0)
+            head.write(file_name)
+            head.truncate()
     return True
 
 
 #------------------------------------------------------------------------------#
 def dry():
-    global dry_run
-    dry_run = True
+    global DRY_RUN
+    DRY_RUN = True
+
+
+#------------------------------------------------------------------------------#
+def variant(variant):
+    if variant is None:
+        print('Missing positional argument: variant', file=stderr)
+        exit(1)
+    global VARIANT
+    VARIANT = variant
 
 
 #------------------------------------------------------------------------------#
 if __name__ == '__main__':
-    callbacks = {'-h'          : help,
-                 '-help'       : help,
-                 '--help'      : help,
-                 'help'        : help,
-                 '-n'          : new,
-                 '--new'       : new,
-                 '-s'          : set_,
-                 '--set'       : set_,
-                 '-l'          : last,
-                 '--last'      : last,
-                 '-u'          : upgrade,
-                 '--upgrade'   : upgrade,
-                 '-d'          : downgrade,
-                 '--downgrade' : downgrade,
-                 '-v'          : validate,
-                 '--validate'  : validate,
-                 '-q'          : query,
-                 '--query'     : query,
-                 '--dry'       : dry}
+    callbacks = {'-h'          : (help, 0, 99),
+                 '-help'       : (help, 0, 99),
+                 '--help'      : (help, 0, 99),
+                 'help'        : (help, 0, 99),
+                 '-n'          : (new, 1, 99),
+                 '--new'       : (new, 1, 99),
+                 '-s'          : (set_, 1, 99),
+                 '--set'       : (set_, 1, 99),
+                 '-l'          : (last, 1, 99),
+                 '--last'      : (last, 1, 99),
+                 '-u'          : (upgrade, 0, 99),
+                 '--upgrade'   : (upgrade, 0, 99),
+                 '-d'          : (downgrade, 1, 99),
+                 '--downgrade' : (downgrade, 1, 99),
+                 '-V'          : (validate, 0, 99),
+                 '--validate'  : (validate, 0, 99),
+                 '-v'          : (variant, 1, 1),
+                 '--variant'   : (variant, 1, 1),
+                 '-q'          : (query, 0, 99),
+                 '--query'     : (query, 0, 99),
+                 '-D'          : (dry, 0, 0),
+                 '--dry'       : (dry, 0, 0)}
+
+    # TODO: This is a bit hacky, and could've been done in a single loop.  Try
+    #       to refactor the argument handling part, and at the same time move
+    #       the global states into a class, and make the callbacks methods
+    argv = {}
+    flag = None
+    params = None
+    for arg in ARGV:
+        if arg.startswith('-'):
+            argv[arg] = params = []
+        else:
+            try:
+                params.append(arg)
+            except AttributeError:
+                print(f'Invalid flag: {error}. Try --help', file=stderr)
+                exit(1)
+
+    actions = {}
     try:
-        for arg in argv:
-            if callbacks[arg]():
-                break
+        for arg, passed_arguments in argv.items():
+            callback, argument_count, order = callbacks[arg]
+            arguments = []
+            for _, argument in zip_longest(range(argument_count),
+                                           passed_arguments, fillvalue=None):
+                arguments.append(argument)
+            actions[callback] = order, arguments
     except KeyError as error:
-        print(f'Invalid sub-command: {error!r}. Try --help', file=stderr)
+        print(f'Invalid flag: {error}. Try --help', file=stderr)
         exit(1)
+
+    for action, (_, arguments) in sorted(actions.items(),
+                                         key=lambda i: i[1][0]):
+        if action(*arguments):
+            break

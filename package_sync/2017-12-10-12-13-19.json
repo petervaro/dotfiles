@@ -1,14 +1,13 @@
 {
     "references":
     {
-        "new_pacman":
+        "new_pacman_1":
         [
             "dunst",
             "feh",
             "leafpad",
             "lxtask",
             "numlockx",
-            "nvidia-settings",
             "openbox",
             "raw-thumbnailer",
             "rofi",
@@ -18,6 +17,10 @@
             "thunar-archive-plugin",
             "thunar-volman",
             "tumbler"
+        ],
+        "new_pacman_2":
+        [
+            "nvidia-settings"
         ],
         "new_pacaur":
         [
@@ -43,22 +46,50 @@
         },
         {
             "command": ["sudo", "pacman", "-S", "--needed"],
-            "parameters": "new_pacman"
+            "parameters": "new_pacman_1"
+        },
+        {
+            "command": ["sudo", "pacman", "-S", "--needed"],
+            "parameters": "new_pacman_2",
+            "variants":
+            [
+                "home",
+                "work"
+            ]
         },
         {
             "command": ["pacaur", "-S", "--needed", "--noedit", "--noconfirm"],
-            "parameters": "new_pacaur"
+            "parameters": "new_pacaur",
+            "variants":
+            [
+                "home",
+                "work"
+            ]
         }
     ],
     "downgrade":
     [
         {
             "command": ["sudo", "pacman", "-Rns"],
-            "parameters": "new_pacman"
+            "parameters": "new_pacman_1"
         },
         {
             "command": ["sudo", "pacman", "-Rns"],
-            "parameters": "new_pacaur"
+            "parameters": "new_pacman_2",
+            "variants":
+            [
+                "home",
+                "work"
+            ]
+        },
+        {
+            "command": ["sudo", "pacman", "-Rns"],
+            "parameters": "new_pacaur",
+            "variants":
+            [
+                "home",
+                "work"
+            ]
         },
         {
             "command": ["sudo", "pacman", "-S", "--needed"],

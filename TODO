@@ -17,4 +17,4 @@
 - decide what to do with the vms backup mechanims (in case of doing so, add the
   following line to the backup.service ([Service] can have multiple ExecStart):
   ExecStart=/usr/bin/duplicity incremental --no-encryption --name='vms_backup' --verbosity=4 --volsize=256 --compare-data --tempdir='/tmp' --archive-dir='/tmp' --exclude='/vms/lost+found' /vms file:///backup/vms)
-- add variant support to package_sync
+- make naming consistent: mobile => notebook

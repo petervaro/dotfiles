@@ -8,19 +8,15 @@
                 "alsa-utils",
                 "aspell",
                 "aspell-en",
-                "blender",
                 "chromium",
                 "clang",
                 "cloc",
                 "colordiff",
                 "compton",
                 "cool-retro-term",
-                "displaycal",
                 "dlang",
                 "duplicity",
                 "firefox",
-                "fontforge",
-                "gimp",
                 "glances",
                 "go",
                 "gparted",
@@ -29,12 +25,10 @@
                 "gvfs",
                 "gvfs-afc",
                 "gvfs-smb",
-                "hedgewars",
                 "weechat",
                 "htop",
                 "i3lock",
                 "inkscape",
-                "krita",
                 "libreoffice",
                 "linux-headers",
                 "lshw",
@@ -42,7 +36,6 @@
                 "moc",
                 "musl",
                 "ntp",
-                "openra",
                 "openssh",
                 "p7zip",
                 "pass",
@@ -80,6 +73,35 @@
             ]
         },
         {
+            "command": ["sudo", "pacman", "-S", "--needed"],
+            "parameters":
+            [
+                "blender",
+                "displaycal",
+                "fontforge",
+                "gimp",
+                "hedgewars",
+                "krita",
+                "openra"
+            ],
+            "variants":
+            [
+                "home",
+                "work"
+            ]
+        },
+        {
+            "command": ["sudo", "pacman", "-S", "--needed"],
+            "parameters":
+            [
+                "acpi"
+            ],
+            "variants":
+            [
+                "mobile"
+            ]
+        },
+        {
             "command": ["pacaur", "-S", "--needed", "--noedit", "--noconfirm"],
             "parameters":
             [
@@ -93,13 +115,25 @@
                 "faba-icon-theme-git",
                 "fonts-meta-extended-lt",
                 "moka-icon-theme-git",
-                "openarena",
                 "peerflix",
                 "prettyping",
                 "speedometer",
                 "tuptime",
                 "tty-clock",
+                "ttf-meslo",
                 "xcursor-openzone"
+            ]
+        },
+        {
+            "command": ["pacaur", "-S", "--needed", "--noedit", "--noconfirm"],
+            "parameters":
+            [
+                "openarena"
+            ],
+            "variants":
+            [
+                "home",
+                "work"
             ]
         },
         {
