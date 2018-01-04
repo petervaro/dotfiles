@@ -7,7 +7,7 @@
         },
         {
             "command": ["pacaur", "-S", "--needed", "--noedit", "--noconfirm"],
-            "parameters": ["arc-gtk-theme-git"]
+            "parameters": ["gtk-theme-arc-git"]
         }
     ],
     "downgrade": []
