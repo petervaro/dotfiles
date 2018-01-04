@@ -76,6 +76,9 @@ OPTIONS
     -q, --query
         Shows all the transaction files and indicating which one is the HEAD.
 
+    -v, --validate
+        Validates the transaction files.
+
     -u, --upgrade
         Executes all files created after the current HEAD.
 
@@ -173,6 +176,19 @@ def query():
 
 
 #------------------------------------------------------------------------------#
+def validate():
+    """
+    Vaildates all transaction files (as in being true JSON files)
+    """
+    for file_name in _sorted_file_names(reverse=False):
+        try:
+            with open(join(SYNC_PATH, file_name)) as json:
+                load(json)
+        except Exception as error:
+            print(f'Validation failed for {file_name!r}: {error}')
+
+
+#------------------------------------------------------------------------------#
 def upgrade():
     """
     Execute all transactions since the current HEAD
@@ -249,6 +265,8 @@ if __name__ == '__main__':
          '--upgrade'   : upgrade,
          '-d'          : downgrade,
          '--downgrade' : downgrade,
+         '-v'          : validate,
+         '--validate'  : validate,
          '-q'          : query,
          '--query'     : query}[next(argv)]()
     except KeyError:

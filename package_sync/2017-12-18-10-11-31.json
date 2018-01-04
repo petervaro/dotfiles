@@ -20,7 +20,7 @@
         {
             "command": ["sudo", "pacman", "-Rns"],
             "parameters": "old"
-        },
+        }
     ],
     "downgrade":
     [
