@@ -59,18 +59,17 @@ def install(source,
     destination = join(destination_path, destination_name)
     if exists(destination):
         if remove_existing:
+            command = ['rm', destination]
             if isfile(destination) or islink(destination):
                 print(f'Removing existing file: {destination}')
-                if require_sudo:
-                    run((SUDO_BIN, 'rm', destination))
-                else:
-                    remove(destination)
             elif isdir(destination):
                 print(f'Removing existing directory: {destination}')
-                if require_sudo:
-                    run((SUDO_BIN, 'rm', '-r', destination))
-                else:
-                    removedirs(destination)
+                command.insert(1, '-r')
+
+            if require_sudo:
+                command.insert(0, SUDO_BIN)
+
+            run(command)
         else:
             if isfile(destination):
                 print(f'Saving existing file as: {destination}.old')
@@ -87,10 +86,10 @@ def install(source,
     else:
         makedirs(destination_path, exist_ok=True)
     print(f'Installing symlink as: {destination}')
+    command = ['ln', '-s', '-f', source, destination]
     if require_sudo:
-        run((SUDO_BIN, 'ln', '-s', source, destination))
-    else:
-        symlink(source, destination)
+        command.insert(0, SUDO_BIN)
+    run(command)
 
     if post_commands:
         print('Running post installation commands:')

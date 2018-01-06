@@ -1,0 +1,33 @@
+{
+    "upgrade":
+    [
+        {
+            "commands":
+            [
+                ["cat", "plank_home.ini"],
+                ["dconf", "load", "/net/launchpad/plank/docks/"]
+            ],
+            "pipe": true,
+            "variants": ["home"]
+        },
+        {
+            "commands":
+            [
+                ["cat", "plank_work.ini"],
+                ["dconf", "load", "/net/launchpad/plank/docks/"]
+            ],
+            "pipe": true,
+            "variants": ["work"]
+        },
+        {
+            "commands":
+            [
+                ["cat", "plank_notebook.ini"],
+                ["dconf", "load", "/net/launchpad/plank/docks/"]
+            ],
+            "pipe": true,
+            "variants": ["mobile"]
+        }
+    ],
+    "downgrade": []
+}

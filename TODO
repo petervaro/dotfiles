@@ -1,8 +1,6 @@
-- do something with the custom .desktop files
 - install.py should compile the binaries to the bin/ and then install them
 - use systemd/Timers to setup an automated backup mechanism for firefox:
     - https://support.mozilla.org/en-US/questions/1121064
-- add sublime preferences to dotfiles
 - add the installation guide here
 - create basic post-installation package_sync files for different targets:
     - virtual (headless)
@@ -18,3 +16,5 @@
   following line to the backup.service ([Service] can have multiple ExecStart):
   ExecStart=/usr/bin/duplicity incremental --no-encryption --name='vms_backup' --verbosity=4 --volsize=256 --compare-data --tempdir='/tmp' --archive-dir='/tmp' --exclude='/vms/lost+found' /vms file:///backup/vms)
 - make naming consistent: mobile => notebook
+- package_sync check if commands succeded or not
+- rename package_sync to system_sync (it can run arbitrary commands)

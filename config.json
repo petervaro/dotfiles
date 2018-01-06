@@ -78,6 +78,21 @@
         }
     ],
     [
+        "freecad.desktop",
+        {
+            "path": "/usr/share/applications",
+            "sudo": true
+        }
+    ],
+    [
+        "kruler.desktop",
+        {
+            "name": "org.kde.kruler.desktop",
+            "path": "/usr/share/applications",
+            "sudo": true
+        }
+    ],
+    [
         "krulerrc",
         {
             "name": ".krulerrc",
@@ -136,6 +151,26 @@
         }
     ],
     [
+        "plank_launchers",
+        {
+            "name": "launchers",
+            "path": "~/.config/plank/dock1"
+        }
+    ],
+    [
+        "plank_launchers",
+        {
+            "variants":
+            {
+                "home": "plank_launchers",
+                "home": "plank_launchers",
+                "mobile": null
+            },
+            "name": "launchers",
+            "path": "~/.config/plank/dock2"
+        }
+    ],
+    [
         "package_sync",
         {
             "name": ".package_sync",
@@ -164,6 +199,27 @@
         }
     ],
     [
+        "signal.desktop",
+        {
+            "path": "/usr/share/applications",
+            "sudo": true
+        }
+    ],
+    [
+        "sublime_settings.json",
+        {
+            "name": "Preferences.sublime-settings",
+            "path": "~/.config/sublime-text-3/Packages/User"
+        }
+    ],
+    [
+        "sublime_keymap.json",
+        {
+            "name": "Default (Linux).sublime-keymap",
+            "path": "~/.config/sublime-text-3/Packages/User"
+        }
+    ],
+    [
         "thunar.xml",
         {
             "path": "~/.config/xfce4/xfconf/xfce-perchannel-xml"
@@ -174,6 +230,21 @@
         {
             "name": ".tmux.conf",
             "path": "~"
+        }
+    ],
+    [
+        "xdg_user_dirs.defaults",
+        {
+            "name": "user-dirs.defaults",
+            "path": "/etc/xdg",
+            "sudo": true
+        }
+    ],
+    [
+        "xdg_user_dirs.dirs",
+        {
+            "name": "user-dirs.dirs",
+            "path": "~/.config"
         }
     ],
     [

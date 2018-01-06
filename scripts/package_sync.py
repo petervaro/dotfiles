@@ -6,9 +6,8 @@ from itertools   import islice, zip_longest
 from json        import load
 from os          import listdir
 from os.path     import join, expanduser, isfile
-from subprocess  import run
+from subprocess  import run, Popen, PIPE
 from sys         import argv, exit, stderr
-from tempfile    import TemporaryFile
 
 SYNC_PATH   = expanduser('~/.package_sync')
 DATE_FORMAT = '%Y-%m-%d-%H-%M-%S'
@@ -21,19 +20,45 @@ VARIANT = None
 #------------------------------------------------------------------------------#
 def _execute_transaction(transaction_json, transaction_name):
     for transaction in transaction_json[transaction_name]:
-        parameters = transaction.get('parameters', [])
-        if isinstance(parameters, str):
-            parameters = transaction_json['references'][parameters]
-        command  = transaction['command'] + parameters
+        pipe = False
+        # If single command
+        if 'command' in transaction:
+            parameters = transaction.get('parameters', [])
+            if isinstance(parameters, str):
+                parameters = transaction_json['references'][parameters]
+            commands = [transaction['command'] + parameters]
+        # If multiple commands
+        elif 'commands' in transaction:
+            pipe = transaction.get('pipe')
+            commands = transaction['commands']
+        # No commands to execute
+        else:
+            continue
+
+        # Check for variants
         variants = transaction.get('variants')
         if (VARIANT is not None and
             variants is not None and
             VARIANT not in variants):
                 continue
+        # Check if dry-run
         elif DRY_RUN:
-            print('$', *command)
+            if pipe:
+                print('$', ' | '.join(' '.join(c) for c in commands))
+            else:
+                for command in commands:
+                    print('$', *command)
+        # Execute command
         else:
-            run(command + parameters)
+            if pipe:
+                stdout = None
+                for command in commands:
+                    process = Popen(command, stdin=PIPE, stdout=PIPE)
+                    stdout = process.communicate(input=stdout)[0]
+                    process.stdout.close()
+            else:
+                for command in commands:
+                    run(command)
 
 
 #------------------------------------------------------------------------------#
