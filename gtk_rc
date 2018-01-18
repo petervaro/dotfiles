@@ -1,0 +1,8 @@
+gtk-icon-theme-name = "Faba-Mono"
+gtk-theme-name = "Arc"
+style "user-font"
+{
+    font_name="Noto Sans 8"
+}
+widget_class "*" style "user-font"
+gtk-font-name = "Noto Sans 8"
