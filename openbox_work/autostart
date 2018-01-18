@@ -1,1 +1,44 @@
-../openbox_home/autostart
+## INFO ##
+## INFO ##
+
+# Turn on key-pad
+numlockx &
+
+# Mute the PC Speaker (aka buzzer)
+xset -b;
+# Disable screen saver (blank screen)
+xset s off;
+# Disable standby, suspend and off modes of display power management system
+xset dpms 0 0 0;
+
+# Start compositor
+compton -r 16 -o .35 -l -24 -t -16 -D 4 -c -C -G --backend glx \
+        --xinerama-shadow-crop --vsync opengl-swc --detect-client-opacity \
+        --glx-no-stencil --glx-swap-method undefined &
+
+# Set wallpapers
+feh --no-fehbg \
+    --bg-center \
+    /home/petervaro/documents/personal/remote/dotfiles/resources/80s_grid_dual_pt1.png \
+    /home/petervaro/documents/personal/remote/dotfiles/resources/80s_grid_dual_pt2.png;
+
+# DisplayCal ICC Profile Loader
+dispwin -d 1 /home/petervaro/.icc/left.icc
+dispwin -d 2 /home/petervaro/.icc/right.icc
+
+# Start docks
+plank --name dock1 &
+plank --name dock2 &
+
+# Start notification daemon
+dunst &
+# Start clip-board manager
+clipit &
+# Sets resolution and leds of razer mouse
+sleep 1 && razercfg -B -K -r 800 \
+                    -m Scrollwheel:static \
+                    -m GlowingLogo:static \
+                    -c Scrollwheel:202020 \
+                    -c GlowingLogo:202020;
+# Runs in background to extract and index text from modified documents
+sleep 1 && recollindex -w 60 -m;

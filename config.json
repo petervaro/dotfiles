@@ -198,7 +198,7 @@
             "variants":
             {
                 "home": "plank_launchers",
-                "home": "plank_launchers",
+                "work": "plank_launchers",
                 "mobile": null
             },
             "name": "launchers",
