@@ -447,7 +447,7 @@ if __name__ == '__main__':
             try:
                 params.append(arg)
             except AttributeError:
-                print(f'Invalid flag: {error}. Try --help', file=stderr)
+                print(f'Invalid flag: {arg}. Try --help', file=stderr)
                 exit(1)
 
     actions = {}

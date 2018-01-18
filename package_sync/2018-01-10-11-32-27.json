@@ -1,0 +1,59 @@
+{
+    "references":
+    {
+        "new":
+        [
+            "kicad",
+            "kicad-library",
+            "kicad-library-3d",
+            "arc-gtk-theme"
+        ],
+        "old":
+        [
+            "xiccd",
+            "gtk-theme-arc-git"
+        ]
+    },
+    "upgrade":
+    [
+        {
+            "command": ["pacaur", "-S", "--needed", "python-protobuf"],
+            "parameters": "new",
+            "variants":
+            [
+                "home",
+                "work"
+            ]
+        },
+        {
+            "command": ["sudo", "pacman", "-Rns"],
+            "parameters": "old",
+            "variants":
+            [
+                "home",
+                "work"
+            ]
+        }
+    ],
+    "downgrade":
+    [
+        {
+            "command": ["sudo", "pacman", "-Rns"],
+            "parameters": "new",
+            "variants":
+            [
+                "home",
+                "work"
+            ]
+        },
+        {
+            "command": ["sudo", "pacaur", "-S", "--needed", "--noedit", "--noconfirm"],
+            "parameters": "old",
+            "variants":
+            [
+                "home",
+                "work"
+            ]
+        }
+    ]
+}

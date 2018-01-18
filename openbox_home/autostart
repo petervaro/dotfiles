@@ -23,8 +23,8 @@ feh --no-fehbg \
     /home/petervaro/documents/personal/remote/dotfiles/resources/80s_grid_dual_ultrawide_pt2.png;
 
 # DisplayCal ICC Profile Loader
-xiccd &
-displaycal-apply-profiles &
+dispwin -d 1 /home/petervaro/.icc/left.icc;
+dispwin -d 2 /home/petervaro/.icc/right.icc;
 
 # Start docks
 plank --name dock1 &

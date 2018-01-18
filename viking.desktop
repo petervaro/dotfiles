@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=Viking
+GenericName=GPS Data Manager
+Comment=Map Based GPS Data Manager (live data capable).
+Exec=viking %F
+Icon=gnome-nettool
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Science;Maps;Geography;Education;
+MimeType=application/vnd.google-earth.kml+xml;application/gpx+xml;

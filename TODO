@@ -18,3 +18,5 @@
 - make naming consistent: mobile => notebook
 - package_sync check if commands succeded or not
 - rename package_sync to system_sync (it can run arbitrary commands)
+- create a script to update plank dconf settings
+- find out why the enabled and working systemd-timer (backup) is removed after reboot

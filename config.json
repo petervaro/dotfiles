@@ -72,6 +72,27 @@
         }
     ],
     [
+        "blender_startup.blend",
+        {
+            "pre":
+            {
+                "commands":
+                [
+                    ["python", "config_helpers/blender.py"]
+                ]
+            },
+            "name": "startup.blend",
+            "path": "~/.config/blender/latest/config"
+        }
+    ],
+    [
+        "blender_userpref.blend",
+        {
+            "name": "userpref.blend",
+            "path": "~/.config/blender/latest/config"
+        }
+    ],
+    [
         "dunst",
         {
             "path": "~/.config"
@@ -79,6 +100,20 @@
     ],
     [
         "freecad.desktop",
+        {
+            "path": "/usr/share/applications",
+            "sudo": true
+        }
+    ],
+    [
+        "gtk_settings.ini",
+        {
+            "name": "settings.ini",
+            "path": "~/.config/gtk-3.0"
+        }
+    ],
+    [
+        "kicad.desktop",
         {
             "path": "/usr/share/applications",
             "sudo": true
@@ -128,15 +163,15 @@
                 {
                     "home":
                     [
-                        ["python", "openboxer.py", "home"]
+                        ["python", "config_helpers/openbox.py", "home"]
                     ],
                     "work":
                     [
-                        ["python", "openboxer.py", "work"]
+                        ["python", "config_helpers/openbox.py", "work"]
                     ],
                     "mobile":
                     [
-                        ["python", "openboxer.py", "mobile"]
+                        ["python", "config_helpers/openbox.py", "mobile"]
                     ]
                 }
             },
@@ -230,6 +265,13 @@
         {
             "name": ".tmux.conf",
             "path": "~"
+        }
+    ],
+    [
+        "viking.desktop",
+        {
+            "path": "/usr/share/applications",
+            "sudo": true
         }
     ],
     [

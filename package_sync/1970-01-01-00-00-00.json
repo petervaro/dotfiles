@@ -60,6 +60,7 @@
                 "unrar",
                 "unzip",
                 "valgrind",
+                "viking",
                 "wtf",
                 "xarchiver",
                 "xdg-user-dirs",
@@ -170,7 +171,7 @@
             "command": ["sudo", "systemctl", "enable", "ntpd.service"]
         },
         {
-            "command": ["xdg-user-dirs-update"]
+            "command": ["xdg-user-dirs-update", "--force"]
         },
         {
             "commands":

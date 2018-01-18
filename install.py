@@ -137,4 +137,4 @@ with open('config.json') as json:
 
 # Install 3rd party dotfiles
 print('Installing 3rd party scripts')
-run(('bash', 'third_party.sh'))
+run(('bash', 'config_helpers/third_party.sh'))
